@@ -1,0 +1,339 @@
+<!doctype html>
+
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Gathering - User Portal Login</title>
+    <!-- Google Fonts: Literata and Nunito Sans -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7-72,400;7-72,700;7-72,800&amp;family=Nunito+Sans:wght@300;400;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Material Symbols Outlined -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link href="./styles/loginStyle.css" rel="stylesheet" />
+    <script src="./scripts/loginScript.js" type="module"></script>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#f5f1ea",
+              "on-secondary": "#ffffff",
+              "primary-fixed-dim": "#8ecf9e",
+              "on-surface-variant": "#4a4e4a",
+              "surface-container": "#f0ece4",
+              "primary-container": "#78a886",
+              "on-primary-fixed-variant": "#2a6038",
+              "secondary-container": "#f0e8db",
+              "inverse-on-surface": "#f5f0e8",
+              "on-primary-container": "#d8f0de",
+              outline: "#74796e",
+              "tertiary-fixed": "#f8e0a8",
+              "primary-fixed": "#c8e8d0",
+              "tertiary-container": "#c4a66a",
+              "surface-tint": "#4a7c59",
+              "on-tertiary-container": "#554020",
+              "error-container": "#ffdad8",
+              "on-background": "#2e3230",
+              "on-tertiary-fixed": "#221a05",
+              "on-surface": "#2e3230",
+              "on-error-container": "#690005",
+              background: "#faf6f0",
+              tertiary: "#705c30",
+              "surface-container-highest": "#e4e0d8",
+              "surface-dim": "#dbd7cf",
+              primary: "#4a7c59",
+              "on-primary": "#ffffff",
+              "inverse-surface": "#2e3230",
+              "surface-bright": "#faf6f0",
+              surface: "#faf6f0",
+              "outline-variant": "#c4c8bc",
+              "on-secondary-container": "#5e5548",
+              "tertiary-fixed-dim": "#dcc48e",
+              "on-tertiary": "#ffffff",
+              "secondary-fixed": "#f0e8db",
+              error: "#b83230",
+              "inverse-primary": "#8ecf9e",
+              secondary: "#6b6358",
+              "on-primary-fixed": "#002110",
+              "on-secondary-fixed": "#1e1a13",
+              "surface-variant": "#e4e0d8",
+              "surface-container-high": "#eae6de",
+              "on-error": "#ffffff",
+              "secondary-fixed-dim": "#d4ccbf",
+              "on-tertiary-fixed-variant": "#554020",
+              "on-secondary-fixed-variant": "#4a4538",
+              "surface-container-lowest": "#ffffff",
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              lg: "1rem",
+              xl: "1.5rem",
+              full: "9999px",
+            },
+            fontFamily: {
+              headline: ["Literata", "serif"],
+              body: ["Nunito Sans", "sans-serif"],
+              label: ["Nunito Sans", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style></style>
+  </head>
+  <body class="bg-background text-on-surface min-h-screen flex overflow-y-auto">
+    <!-- Left Side: Visual Anchor -->
+    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+      <img
+        alt="Collaborative event space"
+        class="absolute inset-0 w-full h-full object-cover"
+        data-alt="A modern, professional conference room with large windows, warm wooden furniture, and plenty of natural light, reflecting a collaborative and welcoming environment."
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfQofNEjZ5y4JtGo3IGIwW89_JaUFKWm2TP_7W8Hhd36lSj2FKdTacim7gLT_t89Fm88jS7tJg5MD1aaIBlKfbwMZHcYzT0PEUqeLmhKFdOklKFXVx-BXy29lKm0lXM4z5IMyu5nX8heww2L7yhLzkybSpUSAvqpS4l-dTh4ggYY2vW4NRPTQ8Yx3m3QnV5Xku8KVLNb__MCQDgKRgxAbQ0BcP8w2sUUeR3GbVccSLXpEYK1D4ZaticoHQkpKFdcAmZnuagbKKUneN"
+      />
+      <!-- Overlay Tonal Shift -->
+      <div class="absolute inset-0 bg-primary/20 mix-blend-multiply"></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-on-background/60 to-transparent"
+      ></div>
+      <!-- Branding Overlay -->
+      <div class="relative z-10 p-16 mt-auto">
+        <h1 class="text-6xl font-bold text-surface mb-4 leading-tight">
+          Gathering at<br />the Roots.
+        </h1>
+        <p
+          class="text-surface-container-low text-xl max-w-md font-light leading-relaxed"
+        >
+          Connect with your community through events designed for harmony,
+          sustainability, and human connection.
+        </p>
+      </div>
+    </div>
+    <!-- Right Side: Login Content -->
+    <div
+      class="w-full lg:w-1/2 flex flex-col justify-center items-center p-8 md:p-16 lg:p-24 bg-surface-container-lowest"
+    >
+      <!-- Brand Header (Using TopNavBar Identity) -->
+      <div class="w-full max-w-md mb-12 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+          <span
+            class="material-symbols-outlined text-primary text-3xl"
+            style="font-variation-settings: &quot;FILL&quot; 1"
+            >eco</span
+          >
+          <span
+            class="text-3xl font-bold tracking-tight text-emerald-900 font-headline"
+            >Gathering</span
+          >
+        </div>
+        <div class="hidden sm:flex">
+          <span class="text-sm text-stone-500 font-body"
+            >User Portal Access</span
+          >
+        </div>
+      </div>
+      <!-- Login Form Container -->
+      <div class="w-full max-w-md">
+        <div class="mb-10">
+          <h2 class="text-3xl font-bold text-on-surface mb-2">Welcome Back</h2>
+          <p class="text-stone-500">
+            Sign in to manage your events and community bookings.
+          </p>
+        </div>
+        <!-- Main Form -->
+        <form class="space-y-6" id="login-form">
+          <div>
+            <label
+              class="block text-sm font-semibold text-on-surface-variant mb-2"
+              for="email"
+              >Email Address</label
+            >
+            <input
+              class="w-full px-5 py-4 rounded-lg bg-surface border border-outline-variant text-on-surface focus:ring-2 focus:ring-primary focus:border-primary transition-shadow outline-none"
+              id="email"
+              placeholder="hello@gathering.com"
+              type="email"
+            />
+          </div>
+          <div>
+            <div class="flex justify-between mb-2">
+              <label
+                class="block text-sm font-semibold text-on-surface-variant"
+                for="password"
+                >Password</label
+              >
+              <a
+                class="text-sm font-semibold text-primary hover:text-on-primary-fixed-variant transition-colors"
+                href="#"
+                >Forgot Password?</a
+              >
+            </div>
+            <div class="relative">
+              <input
+                class="w-full px-5 py-4 rounded-lg bg-surface border border-outline-variant text-on-surface focus:ring-2 focus:ring-primary focus:border-primary transition-shadow outline-none"
+                id="password"
+                placeholder="••••••••"
+                type="password"
+              />
+              <button
+                class="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400"
+                type="button"
+              >
+                <span class="material-symbols-outlined">visibility</span>
+              </button>
+            </div>
+          </div>
+          <div class="flex items-center">
+            <input
+              class="h-5 w-5 text-primary border-outline-variant rounded focus:ring-primary transition-all cursor-pointer"
+              id="remember"
+              type="checkbox"
+            />
+            <label
+              class="ml-3 block text-sm text-on-surface-variant cursor-pointer"
+              for="remember"
+            >
+              Remember me for 30 days
+            </label>
+          </div>
+          <button
+            id="login-button"
+            class="w-full py-4 px-6 bg-primary text-on-primary font-bold text-lg rounded-lg shadow-md hover:shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2"
+            type="submit"
+          >
+            Sign In
+            <span class="material-symbols-outlined text-lg">arrow_forward</span>
+          </button>
+          <button
+            id="visitor-button"
+            class="w-full mt-4 py-4 px-6 bg-surface text-on-surface font-semibold text-lg rounded-lg border border-outline-variant hover:border-primary hover:text-primary transition-all"
+            type="button"
+            onclick="window.location.href = './userMain.html'"
+          >
+            Continue as Visitor
+          </button>
+        </form>
+        <!-- Footer Link -->
+        <div class="mt-12 text-center">
+          <p class="text-stone-500">
+            New to the Gathering platform?
+            <a
+              onclick="openSignupModal(event)"
+              class="text-primary font-bold hover:underline ml-1 cursor-pointer"
+              href="#"
+              >Sign up for free</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <!-- Signup Modal -->
+      <div
+        id="signup-modal"
+        class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+      >
+        <div class="bg-white rounded-2xl shadow-xl p-8 max-w-sm w-full mx-4">
+          <h2 class="text-2xl font-bold text-on-surface mb-2">
+            Join Gathering
+          </h2>
+          <p class="text-stone-500 mb-8">
+            Choose how you'd like to join our community
+          </p>
+
+          <div class="space-y-4">
+            <!-- User Registration Option -->
+            <button
+              onclick="handleSignup('user')"
+              class="w-full p-6 border-2 border-primary rounded-xl hover:bg-primary-fixed-dim transition-colors"
+            >
+              <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-primary text-3xl"
+                  >person</span
+                >
+                <div class="text-left">
+                  <h3 class="font-bold text-on-surface">Register as User</h3>
+                  <p class="text-sm text-stone-500">Discover and book events</p>
+                </div>
+              </div>
+            </button>
+
+            <!-- Organizer Registration Option -->
+            <button
+              onclick="handleSignup('organizer')"
+              class="w-full p-6 border-2 border-primary rounded-xl hover:bg-primary-fixed-dim transition-colors"
+            >
+              <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-primary text-3xl"
+                  >event_note</span
+                >
+                <div class="text-left">
+                  <h3 class="font-bold text-on-surface">
+                    Register as Organizer
+                  </h3>
+                  <p class="text-sm text-stone-500">Create and manage events</p>
+                </div>
+              </div>
+            </button>
+          </div>
+
+          <!-- Close Button -->
+          <button
+            onclick="closeSignupModal()"
+            class="mt-6 w-full py-2 text-stone-600 hover:text-stone-900 font-medium"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+      <!-- Legal Links (Derived from Footer Shared Component) -->
+      <div
+        class="mt-auto pt-12 flex flex-wrap justify-center gap-6 text-xs text-stone-400 font-body"
+      >
+        <span>© 2024 Gathering Organic Platforms. Secure Access.</span>
+        <div class="flex gap-4">
+          <a class="hover:text-emerald-700 transition-colors" href="#"
+            >Privacy Policy</a
+          >
+          <a class="hover:text-emerald-700 transition-colors" href="#"
+            >Terms of Service</a
+          >
+          <a class="hover:text-emerald-700 transition-colors" href="#"
+            >Security Whitepaper</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Function to handle form submission
+      async function handleLoginFromForm(event) {
+        console.log("Form submitted");
+        event.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        if (!email || !password) {
+          alert("Please fill in all fields");
+          return;
+        }
+        console.log("Email:", email);
+        console.log("Password:", password);
+
+        await handleLogin(email, password);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>My Bookings |  Gathering Bookings</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#002110",
+                        "tertiary-fixed": "#f8e0a8",
+                        "primary-fixed-dim": "#8ecf9e",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#d4ccbf",
+                        "on-surface": "#2e3230",
+                        "on-secondary-container": "#5e5548",
+                        "outline": "#74796e",
+                        "on-tertiary-fixed-variant": "#554020",
+                        "surface-dim": "#dbd7cf",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e4e0d8",
+                        "on-secondary-fixed-variant": "#4a4538",
+                        "on-primary-fixed-variant": "#2a6038",
+                        "inverse-on-surface": "#f5f0e8",
+                        "background": "#faf6f0",
+                        "secondary": "#6b6358",
+                        "error": "#b83230",
+                        "on-error-container": "#690005",
+                        "surface-container-low": "#f5f1ea",
+                        "outline-variant": "#c4c8bc",
+                        "surface-bright": "#faf6f0",
+                        "error-container": "#ffdad8",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#f0e8db",
+                        "tertiary": "#705c30",
+                        "primary-fixed": "#c8e8d0",
+                        "on-surface-variant": "#4a4e4a",
+                        "inverse-primary": "#8ecf9e",
+                        "secondary-fixed": "#f0e8db",
+                        "tertiary-fixed-dim": "#dcc48e",
+                        "tertiary-container": "#c4a66a",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#eae6de",
+                        "on-background": "#2e3230",
+                        "surface-variant": "#e4e0d8",
+                        "on-primary-container": "#d8f0de",
+                        "on-tertiary-fixed": "#221a05",
+                        "surface": "#faf6f0",
+                        "on-tertiary-container": "#554020",
+                        "on-error": "#ffffff",
+                        "primary": "#4a7c59",
+                        "surface-tint": "#4a7c59",
+                        "primary-container": "#78a886",
+                        "on-secondary-fixed": "#1e1a13",
+                        "surface-container": "#f0ece4",
+                        "inverse-surface": "#2e3230"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Literata", "serif"],
+                        "body": ["Nunito Sans", "sans-serif"],
+                        "label": ["Nunito Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Nunito Sans', sans-serif; }
+        h1, h2, h3, h4 { font-family: 'Literata', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col">
+    <nav class="bg-stone-50/90 dark:bg-stone-950/90 backdrop-blur-md sticky top-0 z-50 border-b border-stone-200/50 dark:border-stone-800/50 shadow-[0_4px_20px_rgba(46,50,48,0.06)]">
+        <div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto w-full">
+            <div class="font-serif text-2xl font-bold text-emerald-800 dark:text-emerald-400"> Gathering Bookings</div>
+            <div class="hidden md:flex items-center gap-8 font-['Nunito_Sans'] text-stone-700 dark:text-stone-300">
+                <a id="explore-link" class="text-stone-600 dark:text-stone-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors" href="#">Explore</a>
+                <a class="text-emerald-800 dark:text-emerald-400 font-bold border-b-2 border-emerald-800 dark:border-emerald-400 pb-1" href="#">My Bookings</a>
+            </div>
+            <div class="flex items-center gap-4 relative">
+                <button class="p-2 hover:bg-stone-100/50 dark:hover:bg-stone-800/50 rounded-lg transition-all active:scale-95">
+                    <span class="material-symbols-outlined text-stone-700 dark:text-stone-300">notifications</span>
+                </button>
+                <button id="profile-menu-btn" class="p-2 hover:bg-stone-100/50 dark:hover:bg-stone-800/50 rounded-lg transition-all active:scale-95">
+                    <span class="material-symbols-outlined text-stone-700 dark:text-stone-300">account_circle</span>
+                </button>
+
+                <div id="profile-menu" class="hidden absolute top-full right-0 mt-2 w-48 bg-white border border-outline-variant rounded-xl shadow-lg z-50 overflow-hidden">
+                    <div class="px-4 py-3 border-b border-outline-variant/30 bg-surface-container-lowest">
+                        <p class="text-[10px] text-stone-500 uppercase tracking-wider font-bold">Signed in as</p>
+                        <p id="user-display-name" class="text-sm font-bold text-primary truncate">Loading...</p>
+                    </div>
+                    <a href="#" id="logout-btn" class="flex items-center gap-3 px-4 py-3 text-error hover:bg-error-container transition-colors">
+                        <span class="material-symbols-outlined">logout</span>
+                        <span class="font-body text-sm">Logout</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="flex-grow max-w-7xl mx-auto px-6 py-12 w-full">
+        <header class="mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-on-surface mb-4">My Bookings</h1>
+            <p class="text-lg text-on-surface-variant max-w-2xl leading-relaxed">
+                Manage your upcoming experiences and workspace reservations. Rooted in community, grown for you.
+            </p>
+        </header>
+
+        <section class="mb-20">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl font-semibold flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                    Confirmed Bookings
+                </h2>
+                <span class="text-sm font-label text-on-surface-variant bg-surface-container-high px-3 py-1 rounded-full">Active</span>
+            </div>
+            <div id="confirmed-bookings-grid" class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                
+            </div>
+        </section>
+
+        <section class="mb-20">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl font-semibold flex items-center gap-3">
+                    <span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">hourglass_top</span>
+                    Pending Requests
+                </h2>
+                <span class="text-sm font-label text-on-tertiary-container bg-tertiary-container/30 px-3 py-1 rounded-full border border-tertiary-container/20"> Awaiting Approval</span>
+            </div>
+            <div id="pending-bookings-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+            </div>
+        </section>
+        <section class="mb-20 border-t border-outline-variant/30 pt-12">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl font-semibold flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">meeting_room</span>
+                    Active Room Reservations
+                </h2>
+            </div>
+            <div id="active-rooms-grid" class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                </div>
+        </section>
+
+        <section class="mb-20">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl font-semibold flex items-center gap-3">
+                    <span class="material-symbols-outlined text-on-surface-variant">history</span>
+                    Past & Cancelled Rooms
+                </h2>
+            </div>
+            <div id="inactive-rooms-grid" class="grid grid-cols-1 gap-4">
+                </div>
+        </section>
+
+        <section>
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl font-semibold flex items-center gap-3">
+                    <span class="material-symbols-outlined text-on-surface-variant">history</span>
+                    Recent Activity
+                </h2>
+            </div>
+            <div id="recent-activity-grid" class="grid grid-cols-1 gap-4">
+                
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-stone-100 dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 mt-auto">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 px-8 py-12 max-w-7xl mx-auto font-['Nunito_Sans'] text-sm leading-relaxed">
+            <div class="flex flex-col items-center md:items-start gap-2">
+                <div class="font-serif font-semibold text-emerald-800 dark:text-emerald-400 text-lg"> Gathering Organic Bookings</div>
+                <p class="text-stone-500 dark:text-stone-400">© 2026  Gathering Organic Bookings. Rooted in community.</p>
+            </div>
+            <div class="flex gap-6">
+                <a class="text-stone-500 dark:text-stone-400 hover:text-emerald-600 transition-all hover:underline" href="#">Privacy Policy</a>
+                <a class="text-stone-500 dark:text-stone-400 hover:text-emerald-600 transition-all hover:underline" href="#">Terms of Service</a>
+                <a class="text-stone-500 dark:text-stone-400 hover:text-emerald-600 transition-all hover:underline" href="#">Help Center</a>
+                <a class="text-stone-500 dark:text-stone-400 hover:text-emerald-600 transition-all hover:underline" href="#">Contact Us</a>
+            </div>
+            <div class="flex gap-4">
+                <a class="text-emerald-900 dark:text-emerald-500 opacity-80 hover:opacity-100 transition-opacity" href="#">
+                    <span class="material-symbols-outlined">public</span>
+                </a>
+                <a class="text-emerald-900 dark:text-emerald-500 opacity-80 hover:opacity-100 transition-opacity" href="#">
+                    <span class="material-symbols-outlined">eco</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="./scripts/userBookingScript.js" type="module"></script>
+</body>
+</html>

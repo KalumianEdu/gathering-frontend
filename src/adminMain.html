@@ -1,0 +1,450 @@
+<!doctype html>
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Admin Console - Gathering Events</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,700;0,900;1,400&family=Nunito+Sans:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <link href="/styles/adminMainStyle.css" rel="stylesheet" />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-container": "#78a886",
+              "inverse-surface": "#2e3230",
+              "surface-container-low": "#f5f1ea",
+              "secondary-fixed-dim": "#d4ccbf",
+              "outline-variant": "#c4c8bc",
+              "on-secondary-container": "#5e5548",
+              "tertiary-fixed-dim": "#dcc48e",
+              "on-tertiary": "#ffffff",
+              "primary-fixed": "#c8e8d0",
+              tertiary: "#705c30",
+              "on-surface-variant": "#4a4e4a",
+              "on-secondary-fixed": "#1e1a13",
+              "error-container": "#ffdad8",
+              "tertiary-container": "#c4a66a",
+              primary: "#4a7c59",
+              "surface-tint": "#4a7c59",
+              "on-primary": "#ffffff",
+              "surface-container-highest": "#e4e0d8",
+              "surface-dim": "#dbd7cf",
+              "tertiary-fixed": "#f8e0a8",
+              "primary-fixed-dim": "#8ecf9e",
+              "on-primary-fixed": "#002110",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-fixed-variant": "#554020",
+              "inverse-on-surface": "#f5f0e8",
+              "secondary-fixed": "#f0e8db",
+              "on-tertiary-fixed": "#221a05",
+              "on-background": "#2e3230",
+              "surface-variant": "#e4e0d8",
+              "surface-container": "#f0ece4",
+              outline: "#74796e",
+              "on-secondary-fixed-variant": "#4a4538",
+              "surface-bright": "#faf6f0",
+              "on-tertiary-container": "#554020",
+              "inverse-primary": "#8ecf9e",
+              "on-primary-fixed-variant": "#2a6038",
+              error: "#b83230",
+              "on-error-container": "#690005",
+              secondary: "#6b6358",
+              "on-primary-container": "#d8f0de",
+              "surface-container-high": "#eae6de",
+              surface: "#faf6f0",
+              "on-secondary": "#ffffff",
+              "on-surface": "#2e3230",
+              background: "#faf6f0",
+              "on-error": "#ffffff",
+              "secondary-container": "#f0e8db",
+            },
+            fontFamily: {
+              headline: ["Literata"],
+              body: ["Nunito Sans"],
+              label: ["Nunito Sans"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              lg: "1rem",
+              xl: "1.5rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .section-view {
+        transition: opacity 0.32s ease, transform 0.32s ease;
+      }
+
+      .section-view-hidden {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      .section-view-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .fade-item {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      .fade-item-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+
+  <body class="bg-surface-bright text-on-surface">
+    <aside
+      class="fixed left-0 top-0 h-screen w-72 border-r border-stone-200 dark:border-stone-800 bg-[#faf6f0] dark:bg-stone-900 flex flex-col p-4 gap-2 z-50"
+    >
+      <div class="mb-8 px-2 py-4">
+        <div class="flex items-center gap-3">
+          <div
+            class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white"
+          >
+            <span class="material-symbols-outlined">shield_person</span>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold text-[#4a7c59] font-headline">
+              Admin Console
+            </h2>
+            <p class="text-xs text-stone-500 font-body">System Oversight</p>
+          </div>
+        </div>
+      </div>
+      <nav class="flex-grow space-y-1">
+        <a
+          id="tab-overview"
+          class="bg-[#4a7c59] text-white rounded-xl shadow-sm flex items-center gap-3 px-4 py-3 transition-transform hover:translate-x-1"
+          href="#"
+        >
+          <span class="material-symbols-outlined">analytics</span>
+          <span class="font-body text-sm">Overview</span>
+        </a>
+        <a
+          id="tab-users"
+          class="text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-xl flex items-center gap-3 px-4 py-3 transition-transform hover:translate-x-1"
+          href="#"
+        >
+          <span class="material-symbols-outlined">group</span>
+          <span class="font-body text-sm">User Management</span>
+        </a>
+        <a
+          id="tab-approvals"
+          class="text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-xl flex items-center gap-3 px-4 py-3 transition-transform hover:translate-x-1"
+          href="#"
+        >
+          <span class="material-symbols-outlined">fact_check</span>
+          <span class="font-body text-sm">Approvals</span>
+        </a>
+      </nav>
+      <div
+        class="mt-auto p-4 bg-surface-container rounded-xl flex flex-col gap-3"
+      >
+        <div class="flex items-center gap-3 min-w-0">
+          <img
+            id="admin-avatar"
+            class="w-10 h-10 rounded-full object-cover border-2 border-primary-fixed"
+            src="https://media.istockphoto.com/id/1393750072/tr/vekt%C3%B6r/flat-white-icon-man-for-web-design-silhouette-flat-illustration-vector-illustration-stock.jpg?s=612x612&w=0&k=20&c=6DZe_hqZl0BxGZUjCuJS3FZBdWD4ysOw02QXp5lvZIc="
+          />
+          <div class="overflow-visible min-w-0">
+            <p
+              id="admin-name-display"
+              class="text-sm font-bold whitespace-normal"
+            >
+              Admin User
+            </p>
+            <p
+              id="admin-email-display"
+              class="text-xs text-stone-500 whitespace-normal break-words"
+            >
+              admin@example.com
+            </p>
+            <p class="text-[10px] text-stone-500 uppercase tracking-wider">
+              Super Admin
+            </p>
+          </div>
+        </div>
+        <a
+          id="admin-logout"
+          href="./login.html"
+          class="mt-2 inline-flex items-center justify-center w-full px-4 py-3 text-sm font-semibold text-red-600 bg-white border border-red-200 rounded-xl shadow-sm hover:bg-red-50 transition-colors"
+        >
+          <span class="material-symbols-outlined mr-2">logout</span> Logout
+        </a>
+      </div>
+    </aside>
+
+    <main class="ml-72 flex-1 flex flex-col min-h-screen">
+      <div
+        id="view-overview"
+        class="section-view section-view-visible p-8 flex flex-col w-full"
+      >
+        <header class="flex justify-between items-end mb-10">
+          <div>
+            <h1 class="text-4xl font-black text-on-surface mb-2">
+              System Metrics
+            </h1>
+            <p class="text-on-surface-variant font-body">
+              Real-time overview of Gathering Events performance and growth.
+            </p>
+          </div>
+        </header>
+
+        <section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+          <div
+            class="bg-surface-container rounded-xl p-6 border border-outline-variant/20 flex flex-col"
+          >
+            <div
+              class="w-10 h-10 rounded-lg bg-primary-fixed flex items-center justify-center text-primary mb-4"
+            >
+              <span class="material-symbols-outlined">group</span>
+            </div>
+            <p
+              class="text-on-surface-variant text-sm font-label uppercase tracking-widest mb-1"
+            >
+              Total Users
+            </p>
+            <h3 id="stat-total-users" class="text-3xl font-bold font-headline">
+              0
+            </h3>
+          </div>
+          <div
+            class="bg-surface-container rounded-xl p-6 border border-outline-variant/20 flex flex-col"
+          >
+            <div
+              class="w-10 h-10 rounded-lg bg-tertiary-fixed flex items-center justify-center text-tertiary mb-4"
+            >
+              <span class="material-symbols-outlined">event</span>
+            </div>
+            <p
+              class="text-on-surface-variant text-sm font-label uppercase tracking-widest mb-1"
+            >
+              Total Events
+            </p>
+            <h3 id="stat-total-events" class="text-3xl font-bold font-headline">
+              0
+            </h3>
+          </div>
+          <div
+            class="bg-surface-container rounded-xl p-6 border border-outline-variant/20 flex flex-col"
+          >
+            <div
+              class="w-10 h-10 rounded-lg bg-primary-fixed-dim/30 flex items-center justify-center text-primary mb-4"
+            >
+              <span class="material-symbols-outlined">meeting_room</span>
+            </div>
+            <p
+              class="text-on-surface-variant text-sm font-label uppercase tracking-widest mb-1"
+            >
+              Total Rooms
+            </p>
+            <h3 id="stat-total-rooms" class="text-3xl font-bold font-headline">
+              0
+            </h3>
+          </div>
+          <div
+            class="bg-surface-container-highest rounded-xl p-6 border border-outline-variant/20 flex flex-col"
+          >
+            <div
+              class="w-10 h-10 rounded-lg bg-error-container flex items-center justify-center text-error mb-4"
+            >
+              <span class="material-symbols-outlined">fact_check</span>
+            </div>
+            <p
+              class="text-on-surface-variant text-sm font-label uppercase tracking-widest mb-1"
+            >
+              Pending Approvals
+            </p>
+            <h3
+              id="stat-pending-approvals"
+              class="text-3xl font-bold font-headline"
+            >
+              0
+            </h3>
+          </div>
+        </section>
+      </div>
+
+      <div
+        id="view-users"
+        class="section-view section-view-hidden hidden flex flex-col w-full"
+      >
+        <header class="w-full px-8 py-10 max-w-7xl mx-auto">
+          <div
+            class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6"
+          >
+            <div>
+              <h1
+                class="text-4xl font-headline font-bold text-on-surface leading-tight tracking-tight"
+              >
+                Community Directory
+              </h1>
+              <p
+                class="text-on-surface-variant font-body mt-2 max-w-lg text-lg"
+              >
+                Manage permissions, monitor activity, and support the growing
+                network of Gathering Events participants.
+              </p>
+            </div>
+          </div>
+          <div class="mt-10 grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div
+              class="md:col-span-2 bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-3 flex items-center gap-3"
+            >
+              <span class="material-symbols-outlined text-outline">search</span>
+              <input
+                class="bg-transparent border-none focus:ring-0 w-full text-on-surface placeholder:text-outline font-body"
+                placeholder="Search by name, email or role..."
+                type="text"
+              />
+            </div>
+          </div>
+        </header>
+        <section class="px-8 pb-12 max-w-7xl mx-auto w-full">
+          <div
+            class="bg-surface-bright rounded-xl shadow-[0_4px_20px_rgba(46,50,48,0.06)] overflow-hidden border border-outline-variant/20"
+          >
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr
+                  class="bg-surface-container-low border-b border-outline-variant/20"
+                >
+                  <th class="px-6 py-5 font-headline font-bold text-on-surface">
+                    Member
+                  </th>
+                  <th class="px-6 py-5 font-headline font-bold text-on-surface">
+                    Role
+                  </th>
+                  <th
+                    class="px-6 py-5 font-headline font-bold text-on-surface text-center"
+                  >
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody
+                id="users-table-body"
+                class="divide-y divide-outline-variant/10"
+              ></tbody>
+            </table>
+            <div
+              class="px-6 py-4 border-t border-outline-variant/20 flex items-center justify-between bg-surface-container-low"
+            >
+              <p class="text-sm text-on-surface-variant font-body">
+                Showing
+                <span id="page-info" class="font-bold">Page 1 of ?</span> (<span
+                  id="total-users-count"
+                  >0</span
+                >
+                total users)
+              </p>
+              <div class="flex gap-2">
+                <button
+                  id="btn-prev-page"
+                  class="px-4 py-2 text-sm font-bold text-primary bg-surface border border-outline-variant/30 rounded-lg hover:bg-surface-container disabled:opacity-50 transition-colors"
+                  disabled
+                >
+                  Previous
+                </button>
+                <button
+                  id="btn-next-page"
+                  class="px-4 py-2 text-sm font-bold text-primary bg-surface border border-outline-variant/30 rounded-lg hover:bg-surface-container disabled:opacity-50 transition-colors"
+                  disabled
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div
+        id="view-approvals"
+        class="section-view section-view-hidden hidden flex flex-col w-full"
+      >
+        <header class="w-full px-8 py-10 bg-[#faf6f0]">
+          <div class="max-w-5xl">
+            <div class="flex items-center gap-2 text-primary mb-2">
+              <span class="material-symbols-outlined text-sm"
+                >verified_user</span
+              >
+              <span class="text-sm font-semibold tracking-wider uppercase"
+                >Administrative Review</span
+              >
+            </div>
+            <h2 class="text-4xl font-bold text-on-surface mb-4">
+              Organizer Applications
+            </h2>
+            <p class="text-stone-600 max-w-2xl leading-relaxed">
+              Review incoming registration requests from potential event
+              organizers. Vet their credentials to maintain platform quality.
+            </p>
+          </div>
+        </header>
+        <div class="px-8 pb-12 flex-1 mt-8">
+          <div
+            id="approvals-container"
+            class="max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-6"
+          ></div>
+        </div>
+      </div>
+
+      <footer
+        class="w-full py-12 px-8 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-stone-200 bg-stone-100 dark:bg-stone-950 mt-auto"
+      >
+        <div class="flex flex-col gap-2">
+          <span
+            class="text-lg font-bold text-stone-800 dark:text-stone-200 font-headline"
+            >Gathering Events</span
+          >
+          <p class="text-xs text-stone-500 dark:text-stone-400 font-label">
+            © 2026 Gathering Events. Rooted in connection.
+          </p>
+        </div>
+        <div class="flex gap-8">
+          <a
+            class="text-xs text-stone-500 hover:text-[#4a7c59] transition-colors"
+            href="#"
+            >About Us</a
+          >
+          <a
+            class="text-xs text-stone-500 hover:text-[#4a7c59] transition-colors"
+            href="#"
+            >Terms of Service</a
+          >
+          <a
+            class="text-xs text-stone-500 hover:text-[#4a7c59] transition-colors"
+            href="#"
+            >Privacy Policy</a
+          >
+          <a
+            class="text-xs text-stone-500 hover:text-[#4a7c59] transition-colors"
+            href="#"
+            >Contact Support</a
+          >
+        </div>
+      </footer>
+
+      <script type="module" src="./scripts/adminMainScript.js"></script>
+    </main>
+  </body>
+</html>

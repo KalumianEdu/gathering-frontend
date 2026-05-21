@@ -1,0 +1,4 @@
+body { font-family: 'Nunito Sans', sans-serif; background-color: #faf6f0; color: #2e3230; }
+        h1, h2, h3, .font-headline { font-family: 'Literata', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .soft-shadow { box-shadow: 0 4px 20px rgba(46, 50, 48, 0.06); }

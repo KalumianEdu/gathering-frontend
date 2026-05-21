@@ -1,0 +1,73 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./src/**/*.{html,js}"],
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "surface-container-low": "#f5f1ea",
+        "on-secondary": "#ffffff",
+        "primary-fixed-dim": "#8ecf9e",
+        "on-surface-variant": "#4a4e4a",
+        "surface-container": "#f0ece4",
+        "primary-container": "#78a886",
+        "on-primary-fixed-variant": "#2a6038",
+        "secondary-container": "#f0e8db",
+        "inverse-on-surface": "#f5f0e8",
+        "on-primary-container": "#d8f0de",
+        "outline": "#74796e",
+        "tertiary-fixed": "#f8e0a8",
+        "primary-fixed": "#c8e8d0",
+        "tertiary-container": "#c4a66a",
+        "surface-tint": "#4a7c59",
+        "on-tertiary-container": "#554020",
+        "error-container": "#ffdad8",
+        "on-background": "#2e3230",
+        "on-tertiary-fixed": "#221a05",
+        "on-surface": "#2e3230",
+        "on-error-container": "#690005",
+        "background": "#faf6f0",
+        "tertiary": "#705c30",
+        "surface-container-highest": "#e4e0d8",
+        "surface-dim": "#dbd7cf",
+        "primary": "#4a7c59",
+        "on-primary": "#ffffff",
+        "inverse-surface": "#2e3230",
+        "surface-bright": "#faf6f0",
+        "surface": "#faf6f0",
+        "outline-variant": "#c4c8bc",
+        "on-secondary-container": "#5e5548",
+        "tertiary-fixed-dim": "#dcc48e",
+        "on-tertiary": "#ffffff",
+        "secondary-fixed": "#f0e8db",
+        "error": "#b83230",
+        "inverse-primary": "#8ecf9e",
+        "secondary": "#6b6358",
+        "on-primary-fixed": "#002110",
+        "on-secondary-fixed": "#1e1a13",
+        "surface-variant": "#e4e0d8",
+        "surface-container-high": "#eae6de",
+        "on-error": "#ffffff",
+        "secondary-fixed-dim": "#d4ccbf",
+        "on-tertiary-fixed-variant": "#554020",
+        "on-secondary-fixed-variant": "#4a4538",
+        "surface-container-lowest": "#ffffff"
+      },
+      borderRadius: {
+        DEFAULT: "0.5rem",
+        lg: "1rem",
+        xl: "1.5rem",
+        full: "9999px"
+      },
+      fontFamily: {
+        headline: ["Literata", "serif"],
+        body: ["Nunito Sans", "sans-serif"],
+        label: ["Nunito Sans", "sans-serif"]
+      }
+    },
+  },
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/container-queries'),
+  ],
+}
