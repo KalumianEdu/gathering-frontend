@@ -1,82 +1,109 @@
 import { fetchUserBookings, fetchUserRoomBookings } from "./api.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("My Bookings DOM loaded.");
+  console.log("My Bookings DOM loaded.");
 
-    const savedUserString = localStorage.getItem("userInfo") || localStorage.getItem("user");
-    
-    if (!savedUserString) {
-        console.log("No session found. Redirecting to login...");
-        window.location.href = "./login.html";
-        return;
-    }
+  const savedUserString =
+    localStorage.getItem("userInfo") || localStorage.getItem("user");
 
-    const currentUser = JSON.parse(savedUserString);
-    
-    // Check if standard user
-    if (currentUser.userType != 3) {
-        alert("Unauthorized. User access only.");
-        window.location.href = "./login.html";
-        return;
-    }
+  if (!savedUserString) {
+    console.log("No session found. Redirecting to login...");
+    window.location.href = "./login.html";
+    return;
+  }
 
-    console.log("Welcome to Bookings, User:", currentUser);
+  const currentUser = JSON.parse(savedUserString);
 
-    // 1. Update UI and Bind Navigation
-    updateUserUI(currentUser);
-    setupNavigation();
-    
-    /// 2. Load the actual bookings from the database!
-    // Safely hunt down the ID based on your Gathering C# backend structure
-    const actualUserId = currentUser.userID || currentUser.userId || currentUser.UserID || currentUser.id || 0;
+  // Check if standard user
 
-    if (!actualUserId) {
-        console.error("CRITICAL ERROR: Could not find the User ID inside this object:", currentUser);
-        alert("Session error: Could not find your User ID. Please log in again.");
-        return;
-    }
+  console.log("Welcome to Bookings, User:", currentUser);
 
-    console.log("Fetching bookings for User ID:", actualUserId);
-    loadAndRenderBookings(actualUserId);
+  // 1. Update UI and Bind Navigation
+  updateUserUI(currentUser);
+  setupNavigation();
 
-    loadAndRenderRoomBookings(actualUserId);
+  /// 2. Load the actual bookings from the database!
+  // Safely hunt down the ID based on your Gathering C# backend structure
+  const actualUserId =
+    currentUser.userID ||
+    currentUser.userId ||
+    currentUser.UserID ||
+    currentUser.id ||
+    0;
 
+  if (!actualUserId) {
+    console.error(
+      "CRITICAL ERROR: Could not find the User ID inside this object:",
+      currentUser,
+    );
+    alert("Session error: Could not find your User ID. Please log in again.");
+    return;
+  }
+
+  console.log("Fetching bookings for User ID:", actualUserId);
+  loadAndRenderBookings(actualUserId);
+
+  loadAndRenderRoomBookings(actualUserId);
 });
 
 // --- NEW ROOM BOOKING LOGIC ---
 
 async function loadAndRenderRoomBookings(userId) {
-    const roomBookings = await fetchUserRoomBookings(userId);
-    
-    const activeGrid = document.getElementById("active-rooms-grid");
-    const inactiveGrid = document.getElementById("inactive-rooms-grid");
+  const roomBookings = await fetchUserRoomBookings(userId);
 
-    if (activeGrid) activeGrid.innerHTML = "";
-    if (inactiveGrid) inactiveGrid.innerHTML = "";
+  const activeGrid = document.getElementById("active-rooms-grid");
+  const inactiveGrid = document.getElementById("inactive-rooms-grid");
 
-    // Safely extract array
-    const bookingsArray = Array.isArray(roomBookings) ? roomBookings : (roomBookings.$values || []);
+  if (activeGrid) activeGrid.innerHTML = "";
+  if (inactiveGrid) inactiveGrid.innerHTML = "";
 
-    if (bookingsArray.length === 0) {
-        if (activeGrid) activeGrid.innerHTML = `<p class="text-stone-500 italic col-span-full">You have no active room reservations.</p>`;
-        return;
-    }
+  // Safely extract array
+  const bookingsArray = Array.isArray(roomBookings)
+    ? roomBookings
+    : roomBookings.$values || [];
 
-    bookingsArray.forEach(booking => {
-        // Safely extract dates & properties (Handling C# Capitalization)
-        const startDate = new Date(booking.StartDate || booking.startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-        const endDate = new Date(booking.EndDate || booking.endDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        const status = booking.Status || booking.status || "Active";
-        const days = booking.Days || booking.days || 1;
-        const totalPrice = booking.TotalPrice || booking.totalPrice || 0;
-        const typeRoom = booking.room.roomTypeID == 1 ? "Theater" : booking.room.roomTypeID == 2 ? "Workspace" : booking.room.roomTypeID == 3 ? "Classroom" : booking.room.roomTypeID == 4 ? "Boardroom" : "Other Type";
-        
-        // Handle if Room Name is nested or flat
-        const roomName = booking.room?.title || booking.RoomName || booking.Title || `Workspace #${booking.RoomID || booking.roomId}`;
+  if (bookingsArray.length === 0) {
+    if (activeGrid)
+      activeGrid.innerHTML = `<p class="text-stone-500 italic col-span-full">You have no active room reservations.</p>`;
+    return;
+  }
 
-        if (status.toLowerCase().trim() === "active") {
-            // Render ACTIVE Room Card
-            const activeHtml = `
+  bookingsArray.forEach((booking) => {
+    // Safely extract dates & properties (Handling C# Capitalization)
+    const startDate = new Date(
+      booking.StartDate || booking.startDate,
+    ).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    const endDate = new Date(
+      booking.EndDate || booking.endDate,
+    ).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+    const status = booking.Status || booking.status || "Active";
+    const days = booking.Days || booking.days || 1;
+    const totalPrice = booking.TotalPrice || booking.totalPrice || 0;
+    const typeRoom =
+      booking.room.roomTypeID == 1
+        ? "Theater"
+        : booking.room.roomTypeID == 2
+          ? "Workspace"
+          : booking.room.roomTypeID == 3
+            ? "Classroom"
+            : booking.room.roomTypeID == 4
+              ? "Boardroom"
+              : "Other Type";
+
+    // Handle if Room Name is nested or flat
+    const roomName =
+      booking.room?.title ||
+      booking.RoomName ||
+      booking.Title ||
+      `Workspace #${booking.RoomID || booking.roomId}`;
+
+    if (status.toLowerCase().trim() === "active") {
+      // Render ACTIVE Room Card
+      const activeHtml = `
                 <div class="md:col-span-6 bg-surface-container-low rounded-xl overflow-hidden shadow-sm border border-primary/30 flex flex-col md:flex-row h-full group hover:shadow-md transition-all">
                     <div class="md:w-2/5 relative h-48 md:h-auto bg-stone-200">
                         <img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://www.dbb.com/wp-content/uploads/2025/06/M-13-scaled.jpg" />
@@ -103,11 +130,10 @@ async function loadAndRenderRoomBookings(userId) {
                     </div>
                 </div>
             `;
-            if (activeGrid) activeGrid.insertAdjacentHTML("beforeend", activeHtml);
-
-        } else {
-            // Render INACTIVE/CANCELLED Room Card
-            const inactiveHtml = `
+      if (activeGrid) activeGrid.insertAdjacentHTML("beforeend", activeHtml);
+    } else {
+      // Render INACTIVE/CANCELLED Room Card
+      const inactiveHtml = `
                 <div class="bg-surface-container/20 border border-outline-variant/40 rounded-xl p-5 flex flex-col md:flex-row items-center justify-between gap-4 opacity-70 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
                     <div class="flex items-center gap-4 w-full md:w-auto">
                         <div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-stone-500">
@@ -126,36 +152,44 @@ async function loadAndRenderRoomBookings(userId) {
                     </div>
                 </div>
             `;
-            if (inactiveGrid) inactiveGrid.insertAdjacentHTML("beforeend", inactiveHtml);
-        }
-    });
+      if (inactiveGrid)
+        inactiveGrid.insertAdjacentHTML("beforeend", inactiveHtml);
+    }
+  });
 }
 // --- API & Rendering Logic ---
 
 async function loadAndRenderBookings(userId) {
-    // Fetch data from backend
-    const bookings = await fetchUserBookings(userId);
-    
-    if (!bookings || bookings.length === 0) {
-        console.log("No bookings found for this user.");
-        return; 
-    }
+  // Fetch data from backend
+  const bookings = await fetchUserBookings(userId);
 
-    const confirmedGrid = document.getElementById("confirmed-bookings-grid");
-    const activityGrid = document.getElementById("recent-activity-grid");
+  if (!bookings || bookings.length === 0) {
+    console.log("No bookings found for this user.");
+    return;
+  }
 
-    // Clear out the hardcoded HTML templates
-    if (confirmedGrid) confirmedGrid.innerHTML = "";
-    if (activityGrid) activityGrid.innerHTML = "";
+  const confirmedGrid = document.getElementById("confirmed-bookings-grid");
+  const activityGrid = document.getElementById("recent-activity-grid");
 
-    bookings.forEach(booking => {
-        // FORMAT DATES: Read directly from the 'booking' object now!
-        const startDate = new Date(booking.startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        const bookingDate = new Date(booking.bookingDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  // Clear out the hardcoded HTML templates
+  if (confirmedGrid) confirmedGrid.innerHTML = "";
+  if (activityGrid) activityGrid.innerHTML = "";
 
-        if (booking.paymentStatus === "Cancelled") {
-            // Render as Cancelled in the Recent Activity Section
-            const cancelledHtml = `
+  bookings.forEach((booking) => {
+    // FORMAT DATES: Read directly from the 'booking' object now!
+    const startDate = new Date(booking.startDate).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+    const bookingDate = new Date(booking.bookingDate).toLocaleDateString(
+      "en-US",
+      { month: "short", day: "numeric", year: "numeric" },
+    );
+
+    if (booking.paymentStatus === "Cancelled") {
+      // Render as Cancelled in the Recent Activity Section
+      const cancelledHtml = `
                 <div class="bg-surface-container/20 border border-dashed border-outline-variant/40 rounded-xl p-5 flex flex-col md:flex-row items-center justify-between gap-4 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
                     <div class="flex items-center gap-4 w-full md:w-auto">
                         <div class="w-12 h-12 rounded-full bg-error-container/50 flex items-center justify-center text-error">
@@ -177,11 +211,11 @@ async function loadAndRenderBookings(userId) {
                     </div>
                 </div>
             `;
-            if (activityGrid) activityGrid.insertAdjacentHTML("beforeend", cancelledHtml);
-            
-        } else {
-            // Render as Confirmed (Active, Paid, etc.)
-            const confirmedHtml = `
+      if (activityGrid)
+        activityGrid.insertAdjacentHTML("beforeend", cancelledHtml);
+    } else {
+      // Render as Confirmed (Active, Paid, etc.)
+      const confirmedHtml = `
                 <div class="md:col-span-6 bg-surface-container rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(46,50,48,0.06)] flex flex-col md:flex-row h-full group transition-all hover:shadow-lg">
                     <div class="md:w-2/5 relative h-48 md:h-auto bg-primary-fixed-dim">
                         <img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://picsum.photos/seed/${booking.eventID}/400/300" />
@@ -212,55 +246,61 @@ async function loadAndRenderBookings(userId) {
                     </div>
                 </div>
             `;
-            if (confirmedGrid) confirmedGrid.insertAdjacentHTML("beforeend", confirmedHtml);
-        }
-    });
+      if (confirmedGrid)
+        confirmedGrid.insertAdjacentHTML("beforeend", confirmedHtml);
+    }
+  });
 }
 
 // --- Helper Functions ---
 
 function setupNavigation() {
-    const exploreLink = document.getElementById("explore-link");
-    if (exploreLink) {
-        exploreLink.addEventListener("click", (e) => {
-            e.preventDefault();
-            window.location.href = "./userMain.html";
-        });
-    }
+  const exploreLink = document.getElementById("explore-link");
+  if (exploreLink) {
+    exploreLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.href = "./userMain.html";
+    });
+  }
 
-    const profileMenuBtn = document.getElementById("profile-menu-btn");
-    const profileMenu = document.getElementById("profile-menu");
-    
-    if (profileMenuBtn && profileMenu) {
-        profileMenuBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            profileMenu.classList.toggle("hidden");
-        });
-        
-        document.addEventListener("click", (e) => {
-            if (!profileMenuBtn.contains(e.target) && !profileMenu.contains(e.target)) {
-                profileMenu.classList.add("hidden");
-            }
-        });
-    }
+  const profileMenuBtn = document.getElementById("profile-menu-btn");
+  const profileMenu = document.getElementById("profile-menu");
 
-    const logoutBtn = document.getElementById("logout-btn");
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            sessionStorage.clear();
-            localStorage.clear();
-            window.location.replace("./login.html");
-        });
-    }
+  if (profileMenuBtn && profileMenu) {
+    profileMenuBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      profileMenu.classList.toggle("hidden");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (
+        !profileMenuBtn.contains(e.target) &&
+        !profileMenu.contains(e.target)
+      ) {
+        profileMenu.classList.add("hidden");
+      }
+    });
+  }
+
+  const logoutBtn = document.getElementById("logout-btn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      sessionStorage.clear();
+      localStorage.clear();
+      window.location.replace("./login.html");
+    });
+  }
 }
 
 function updateUserUI(user) {
-    const nameDisplay = document.getElementById("user-display-name");
-    if (nameDisplay && user) {
-        // Handle if user details are nested inside 'person'
-        const firstName = user.firstName || (user.person && user.person.firstName) || "User";
-        const lastName = user.lastName || (user.person && user.person.lastName) || "";
-        nameDisplay.textContent = `${firstName} ${lastName}`.trim();
-    }
+  const nameDisplay = document.getElementById("user-display-name");
+  if (nameDisplay && user) {
+    // Handle if user details are nested inside 'person'
+    const firstName =
+      user.firstName || (user.person && user.person.firstName) || "User";
+    const lastName =
+      user.lastName || (user.person && user.person.lastName) || "";
+    nameDisplay.textContent = `${firstName} ${lastName}`.trim();
+  }
 }

@@ -1,6 +1,6 @@
 // API helper for requests
 // Base backend URL for your API.
-const API_BASE_URL = "https://192.168.1.53:7171";
+const API_BASE_URL = "https://gathering.runasp.net";
 
 import { jwtDecode } from "https://cdn.jsdelivr.net/npm/jwt-decode@4.0.0/+esm";
 import { User } from "../models/user.js";

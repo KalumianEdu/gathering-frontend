@@ -145,6 +145,22 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  // 8. Secure Logout Logic
+  const logoutBtn = document.getElementById("logout-btn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      console.log("Logging out...");
+
+      // Clear all storage
+      sessionStorage.clear();
+      localStorage.clear();
+
+      // Reload the page to revert back to guest view
+      window.location.reload();
+    });
+  }
 });
 
 function updateOrganizerUI(user) {
