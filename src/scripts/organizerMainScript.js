@@ -12,10 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // 1. Grab the saved user data from local storage
   const savedUserString = localStorage.getItem("user");
 
-  console.log("Saved user string from localStorage:", savedUserString);
   // 2. Route Protection: Kick them out if they aren't logged in
   if (!savedUserString) {
-    console.log("No user session found. Redirecting to login...");
     window.location.href = "./login.html";
     return;
   }
@@ -40,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     currentUser.UserID ||
     currentUser.id ||
     0;
+
   loadRooms(actualUserId);
 
   // Fetch and render dashboard metrics!
@@ -165,14 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function updateOrganizerUI(user) {
   const profileNameElement = document.querySelector("aside .mt-auto .truncate");
-
   if (profileNameElement) {
-    console.log("Flattened User Object from Storage:", user);
-
-    // Notice we REMOVED the .person part! We access it directly.
-    console.log("User firstName:", user.firstName);
-    console.log("User lastName:", user.lastName);
-
     // Safely extract the flattened properties
     const firstName = user.email || "Organizer";
     const lastName = user.lastName || "";
@@ -193,6 +185,7 @@ async function handlePublishEvent(event, currentUser) {
   const startDate = document.getElementById("input-start-date").value;
   const endDate = document.getElementById("input-end-date").value;
   const location = document.getElementById("input-location").value;
+  const eventTypeID = document.getElementById("input-event-type").value;
 
   // Convert price and capacity to numbers (default to 0 if left blank)
   const price = parseFloat(document.getElementById("input-price").value) || 0;
@@ -218,25 +211,31 @@ async function handlePublishEvent(event, currentUser) {
     location: location,
     seatCapacity: capacity,
     ticketPrice: price,
+    eventTypeID: 1, // <-- You can make this dynamic if you add an Event Type dropdown in the future
   };
 
   console.log("Submitting Event Payload:", eventPayload);
 
-  // 4. Send the data to the backend
-  const response = await createEvent(eventPayload);
+  try {
+    // 4. Send the data to the backend
+    const response = await createEvent(eventPayload);
+    console.log("Create Event API response:", response);
+    // 5. Handle the result
+    if (response) {
+      alert("Event published successfully!");
 
-  // 5. Handle the result
-  if (response) {
-    alert("Event published successfully!");
+      // Optional: Switch the user back to the main dashboard tab
+      document.getElementById("btn-back-dashboard").click();
 
-    // Optional: Switch the user back to the main dashboard tab
-    document.getElementById("btn-back-dashboard").click();
-
-    // Optional: Reset the form fields here so it's clean for the next event
-    document.getElementById("input-title").value = "";
-    // ... (you can reset the rest of the inputs as well)
-  } else {
-    alert("Failed to create the event. Check the console for details.");
+      // Optional: Reset the form fields here so it's clean for the next event
+      document.getElementById("input-title").value = "";
+      // ... (you can reset the rest of the inputs as well)
+    } else {
+      alert("Failed to create the event. Check the console for details.");
+    }
+  } catch (error) {
+    console.error("Error during event creation:", error);
+    alert("An error occurred while creating the event. Please try again.");
   }
 }
 

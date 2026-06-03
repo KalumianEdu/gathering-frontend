@@ -14,6 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const userActions = document.getElementById("user-actions");
 
   if (!savedUserString) {
+    console.log(localStorage.clear("UserID"));
+    console.log(localStorage.clear("accessToken"));
+    console.log(localStorage.clear("refreshToken"));
     console.log("No session found. Viewing as guest.");
     // Show Login/Signup, Hide Profile Menu
     if (authActions) authActions.classList.remove("hidden");
@@ -133,6 +136,7 @@ async function loadEvents() {
     const title = event.eventName || event.title || "Untitled Event";
     const price = event.price ? `$${event.price}` : "Free";
     const location = event.location || "TBD";
+    const eventType = event.eventType || event.type || event.category || "Event";
     const date = event.startDate
       ? new Date(event.startDate).toLocaleDateString() +
         " - " +
@@ -145,6 +149,9 @@ async function loadEvents() {
            <div class="group cursor-pointer" onclick="window.location.href='./eventDetails.html?id=${event.eventID || event.id}'">
                 <div class="relative aspect-[7/5] rounded-2xl overflow-hidden mb-4 shadow-sm">
                     <img alt="${title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${imageUrl}"/>
+                    <div class="absolute top-4 left-4 bg-white/90 text-primary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
+                        ${eventType}
+                    </div>
                     <div class="absolute top-4 right-4 bg-gradient-to-r from-primary to-primary-container text-on-primary px-4 py-2 rounded-full text-sm font-bold shadow-lg flex items-center gap-1">
                         ${event.ticketPrice > 0 ? `$${event.ticketPrice}` : "Free"}
                     </div>

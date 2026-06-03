@@ -4,6 +4,14 @@ const API_BASE_URL = "https://gathering.runasp.net";
 
 import { jwtDecode } from "https://cdn.jsdelivr.net/npm/jwt-decode@4.0.0/+esm";
 import { User } from "../models/user.js";
+import RefreshTokenResponse from "../models/DTOs/Auth/refreshTokenResponse.js";
+
+function getAccessToken() {
+  return localStorage.getItem("accessToken");
+}
+function getRefreshToken() {
+  return localStorage.getItem("refreshToken");
+}
 
 function getApiBaseUrl() {
   return API_BASE_URL.replace(/\/+$/, "");
@@ -22,9 +30,10 @@ function buildApiUrl(endpoint) {
   return `${baseUrl}/${normalizedEndpoint}`;
 }
 
-async function apiGet(endpoint, options = {}) {
+async function apiGet(endpoint, options = {}, isRetry = false) {
   const url = buildApiUrl(endpoint);
-  const token = localStorage.getItem("token");
+  const token = getAccessToken();
+
   const response = await fetch(url, {
     method: "GET",
 
@@ -36,7 +45,19 @@ async function apiGet(endpoint, options = {}) {
     ...options,
   });
 
-  if (!response.ok) {
+  if (response.status == 401) {
+    if (isRetry) {
+      localStorage.clear();
+      window.location.href = "../login.html"; // Redirect to login page on unauthorized access after retry
+      throw new Error("Unauthorized access loop blocked.");
+    }
+    const currentRefreshToken = getRefreshToken();
+    const email = localStorage.getItem("email");
+    await refreshToken(currentRefreshToken, email);
+
+    // Retry the original request exactly ONCE by passing true to isRetry
+    return await apiGet(endpoint, options, true);
+  } else if (!response.ok) {
     const errorText = await response.text();
     throw new Error(
       `GET ${url} failed with status ${response.status}: ${errorText}`,
@@ -46,9 +67,9 @@ async function apiGet(endpoint, options = {}) {
   return response.json();
 }
 
-async function apiPost(endpoint, body, options = {}) {
+async function apiPost(endpoint, body, options = {}, isRetry = false) {
   const url = buildApiUrl(endpoint);
-  const token = localStorage.getItem("token");
+  const token = getAccessToken();
 
   const response = await fetch(url, {
     method: "POST",
@@ -61,8 +82,19 @@ async function apiPost(endpoint, body, options = {}) {
     body: JSON.stringify(body),
     ...options,
   });
+  if (response.status == 401) {
+    if (isRetry) {
+      localStorage.clear();
+      window.location.href = "../login.html";
+      throw new Error("Unauthorized access loop blocked.");
+    }
+    const currentRefreshToken = getRefreshToken();
+    const email = localStorage.getItem("email");
+    await refreshToken(currentRefreshToken, email);
 
-  if (!response.ok) {
+    // Retry the original request exactly ONCE by passing true to isRetry
+    return await apiPost(endpoint, body, options, true);
+  } else if (!response.ok) {
     const errorText = await response.text();
     throw new Error(
       `POST ${url} failed with status ${response.status}: ${errorText}`,
@@ -71,6 +103,8 @@ async function apiPost(endpoint, body, options = {}) {
 
   return response.json();
 }
+
+// Without Authorization header (for login/signup)
 async function apiPostNormal(endpoint, body) {
   const url = buildApiUrl(endpoint);
 
@@ -85,17 +119,18 @@ async function apiPostNormal(endpoint, body) {
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(
+
+    console.log(
       `POST ${url} failed with status ${response.status}: ${errorText}`,
     );
   }
 
-  return response.json();
+  return response;
 }
 
-async function apiPut(endpoint, body, options = {}) {
+async function apiPut(endpoint, body, options = {}, isRetry = false) {
   const url = buildApiUrl(endpoint);
-  const token = localStorage.getItem("token");
+  const token = getAccessToken();
 
   const response = await fetch(url, {
     method: "PUT",
@@ -109,7 +144,19 @@ async function apiPut(endpoint, body, options = {}) {
     ...options,
   });
 
-  if (!response.ok) {
+  if (response.status == 401) {
+    if (isRetry) {
+      localStorage.clear();
+      window.location.href = "../login.html";
+      throw new Error("Unauthorized access loop blocked.");
+    }
+    const currentRefreshToken = getRefreshToken();
+    const email = localStorage.getItem("email");
+    await refreshToken(currentRefreshToken, email);
+
+    // Retry the original request exactly ONCE by passing true to isRetry
+    return await apiPut(endpoint, body, options, true);
+  } else if (!response.ok) {
     const errorText = await response.text();
     throw new Error(
       `PUT ${url} failed with status ${response.status}: ${errorText}`,
@@ -119,9 +166,9 @@ async function apiPut(endpoint, body, options = {}) {
   return response.json();
 }
 
-async function apiDelete(endpoint, options = {}) {
+async function apiDelete(endpoint, options = {}, isRetry = false) {
   const url = buildApiUrl(endpoint);
-  const token = localStorage.getItem("token");
+  const token = getAccessToken();
 
   const response = await fetch(url, {
     method: "DELETE",
@@ -134,7 +181,19 @@ async function apiDelete(endpoint, options = {}) {
     ...options, // Note: DELETE requests usually do not need a body
   });
 
-  if (!response.ok) {
+  if (response.status == 401) {
+    if (isRetry) {
+      localStorage.clear();
+      window.location.href = "../login.html";
+      throw new Error("Unauthorized access loop blocked.");
+    }
+    const currentRefreshToken = getRefreshToken();
+    const email = localStorage.getItem("email");
+    await refreshToken(currentRefreshToken, email);
+
+    // Retry the original request exactly ONCE by passing true to isRetry
+    return await apiDelete(endpoint, options, true);
+  } else if (!response.ok) {
     const errorText = await response.text();
     throw new Error(
       `DELETE ${url} failed with status ${response.status}: ${errorText}`,
@@ -164,6 +223,17 @@ function decodeToken(token) {
   }
 }
 
+async function refreshToken(currentRefreshToken, currentEmail) {
+  const response = await apiPostNormal("api/Auth/refresh", {
+    refreshToken: currentRefreshToken,
+    email: currentEmail,
+  });
+  var newTokens = await response.json();
+  // Assuming the response contains the new access token and refresh token
+  console.log("Received new tokens from refresh:", newTokens);
+  localStorage.setItem("accessToken", newTokens["accessToken"]);
+  localStorage.setItem("refreshToken", newTokens["refreshToken"]);
+}
 async function fetchUserInfoWithLocalStorageID() {
   const userID = localStorage.getItem("userID");
 
@@ -186,6 +256,7 @@ async function fetchUserInfoWithLocalStorageID() {
     );
 
     localStorage.setItem("user", JSON.stringify(userInfo));
+    localStorage.setItem("email", userInfo.email); // Store email for token refresh
   } catch (error) {
     console.error("Error fetching detailed user info:", error);
   }
@@ -221,7 +292,6 @@ async function fetchUserInfo(userId) {
 
 // Add this right above your export statement in api.js
 async function createEvent(eventData) {
-  console.log("Calling create event API with", eventData);
   try {
     const data = await apiPost("GatheringApi/create/event", eventData);
     return data;
@@ -431,15 +501,10 @@ async function fetchUserRoomBookings(userId) {
 
 // Add this near your other fetch functions in api.js
 async function fetchOrganizerDashboardInfo(organizerId) {
-  try {
-    const data = await apiGet(
-      `GatheringApi/get/all/organizer/dashboard/info/${parseInt(organizerId)}`,
-    );
-    return data;
-  } catch (error) {
-    console.error("Error fetching organizer dashboard info:", error);
-    return null;
-  }
+  const data = await apiGet(
+    `GatheringApi/get/all/organizer/dashboard/info/${parseInt(organizerId)}`,
+  );
+  return data;
 }
 // CRITICAL: Remember to add fetchOrganizerDashboardInfo to your export { ... } at the bottom!
 // CRITICAL: Remember to add fetchUserRoomBookings to your export { ... } at the bottom!
@@ -506,14 +571,15 @@ async function login(email, password) {
       password,
     });
 
-    const token = await response;
-
-    const decodedToken = decodeToken(token["token"]);
+    var tokens = await response.json();
 
     // store in localStorage
     // localStorage.setItem("user", JSON.stringify(user));
     //// Here you need to do a parallel .
-    localStorage.setItem("token", token["token"]);
+    localStorage.setItem("accessToken", tokens["accessToken"]);
+    localStorage.setItem("refreshToken", tokens["refreshToken"]);
+
+    const decodedToken = decodeToken(tokens["accessToken"]);
     localStorage.setItem(
       "userID",
       decodedToken[

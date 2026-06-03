@@ -5,14 +5,13 @@ async function handleLogin(email, password) {
   // 1. Authenticate the user
   await login(email, password);
 
-  const token = localStorage.getItem("token");
+  const accessToken = localStorage.getItem("accessToken");
 
-  if (token == null) {
+  if (accessToken == null) {
     alert("Invalid email or password");
     return false;
   }
 
-  console.log("User logged in successfully:", localStorage.getItem("userID"));
   // 2. Fetch their detailed profile using their new ID
   // Note: Ensure 'loggedInUser.id' or 'loggedInUser.UserID' matches the exact property name returned by your login API
 
@@ -34,15 +33,13 @@ async function handleLogin(email, password) {
   // Ensure you are using the correct case for userType (e.g., UserType vs userType)
   const pageToRedirect = redirectPages[userRole];
 
-  console.log(
-    "================================ LOGIN SUCCESS ===========================",
-  );
   console.log("Redirecting to", pageToRedirect);
 
   if (pageToRedirect) {
     window.location.href = pageToRedirect;
   } else {
     alert("Unknown user type");
+
     return false;
   }
 
@@ -52,7 +49,6 @@ async function handleLogin(email, password) {
 // 2. Form Submission Handler
 async function handleLoginFromForm(event) {
   event.preventDefault(); // This stops the page from reloading
-  console.log("Form submitted");
 
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
@@ -89,8 +85,6 @@ function handleSignup(userType) {
 
 // 4. Attach Event Listeners on DOM Load
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("DOM loaded, attaching listeners...");
-
   // Attach to the form's submit event (handles both clicking the button and pressing Enter)
   const form =
     document.getElementById("login-form") || document.querySelector("form");

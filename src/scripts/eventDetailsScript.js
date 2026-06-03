@@ -42,6 +42,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       : "TBD";
     document.getElementById("detail-location").textContent =
       eventData.location || "TBD";
+    document.getElementById("detail-category").textContent =
+      eventData.eventType || eventData.type || eventData.category || "Event";
 
     // Save base price to calculate total later
     const basePrice = eventData.ticketPrice || 0;
