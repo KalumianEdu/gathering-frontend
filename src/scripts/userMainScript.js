@@ -7,6 +7,22 @@ document.addEventListener("DOMContentLoaded", () => {
   loadEvents();
   loadRooms();
 
+  // Scroll Reveal Animation Logic (Run for everyone)
+  const revealElements = document.querySelectorAll(".scroll-reveal");
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("active");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
+  });
+
+  revealElements.forEach(el => revealObserver.observe(el));
+
   // 1. Check for saved user session
   const savedUserString = localStorage.getItem("user");
 
@@ -49,13 +65,13 @@ document.addEventListener("DOMContentLoaded", () => {
   if (switchToOrganizerBtn) {
     if (isOrganizer) {
       switchToOrganizerBtn.classList.remove("hidden");
-      switchToOrganizerBtn.style.display = "inline-flex";
+      switchToOrganizerBtn.classList.add("inline-flex");
       switchToOrganizerBtn.addEventListener("click", () => {
         window.location.href = "./organizerMain.html";
       });
     } else {
       switchToOrganizerBtn.classList.add("hidden");
-      switchToOrganizerBtn.style.display = "none";
+      switchToOrganizerBtn.classList.remove("inline-flex");
       switchToOrganizerBtn.removeAttribute("href");
     }
   }

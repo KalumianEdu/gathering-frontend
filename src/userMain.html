@@ -264,6 +264,16 @@
         right: 25%;
         animation-delay: 3s;
       }
+
+      .scroll-reveal {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      .scroll-reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
     </style>
   </head>
   <body class="bg-background text-on-surface">
@@ -276,14 +286,14 @@
       class="bg-[#faf6f0] dark:bg-stone-900 shadow-sm sticky top-0 z-50 border-b border-stone-200 dark:border-stone-800"
     >
       <div
-        class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto"
+        class="flex flex-wrap justify-between items-center gap-3 w-full px-4 sm:px-6 py-4 max-w-7xl mx-auto"
       >
         <div
-          class="text-2xl font-bold font-['Literata'] text-[#4a7c59] dark:text-emerald-500"
+          class="text-xl sm:text-2xl font-bold font-['Literata'] text-[#4a7c59] dark:text-emerald-500"
         >
           Gathering Events
         </div>
-        <div class="flex items-center gap-4">
+        <div class="flex items-center justify-end gap-2 sm:gap-4">
           <!-- Guest Actions (Visible when NOT logged in) -->
           <div id="auth-actions" class="hidden flex items-center gap-3">
             <a
@@ -295,20 +305,20 @@
           </div>
 
           <!-- User Actions (Visible when logged in) -->
-          <div id="user-actions" class="hidden flex items-center gap-4">
+          <div id="user-actions" class="hidden flex w-full sm:w-auto flex-wrap items-center justify-end gap-2 sm:gap-4">
             <button
               id="my-bookings-btn"
-              class="hidden lg:block px-6 py-2 bg-primary text-on-primary rounded-xl font-semibold shadow-sm hover:opacity-90 transition-opacity"
+              class="inline-flex items-center justify-center whitespace-nowrap px-3 sm:px-6 py-2 bg-primary text-on-primary rounded-xl text-sm sm:text-base font-semibold shadow-sm hover:opacity-90 transition-opacity"
             >
               My Bookings
             </button>
             <button
               id="switch-to-organizer-btn"
-              class="hidden lg:block px-6 py-2 bg-secondary text-on-secondary rounded-xl font-semibold shadow-sm hover:opacity-90 transition-opacity"
+              class="hidden items-center justify-center whitespace-nowrap px-3 sm:px-6 py-2 bg-secondary text-on-secondary rounded-xl text-sm sm:text-base font-semibold shadow-sm hover:opacity-90 transition-opacity"
             >
               Organizer Dashboard
             </button>
-            <div class="relative">
+            <div class="relative ml-auto shrink-0">
               <button
                 id="profile-menu-btn"
                 class="flex items-center gap-2 p-1.5 border border-outline-variant rounded-full bg-surface-container-lowest hover:bg-surface-container transition-colors"
@@ -440,7 +450,69 @@
         </div>
       </section>
 
-      <section class="max-w-7xl mx-auto px-6 py-16">
+      <!-- Event Categories Section -->
+      <section class="max-w-7xl mx-auto px-6 pt-16 scroll-reveal">
+        <div class="mb-10">
+          <h2 class="text-3xl font-bold text-on-surface mb-2">Browse by Category</h2>
+          <p class="text-secondary font-body">
+            Explore events tailored to your interests.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-4 sm:gap-6">
+          <a href="#" class="group relative flex flex-col items-center justify-center p-6 sm:p-8 bg-surface-container rounded-[2rem] hover:bg-surface-container-lowest transition-all duration-300 ease-out transform hover:-translate-y-2 hover:shadow-xl min-w-[150px] flex-1 border border-outline-variant/30 hover:border-primary/30 overflow-hidden">
+            <!-- Decorative background blobs -->
+            <div class="absolute -top-10 -right-10 w-24 h-24 bg-primary/10 rounded-full blur-xl group-hover:bg-primary/20 transition-colors duration-500"></div>
+            <div class="absolute -bottom-10 -left-10 w-24 h-24 bg-tertiary/10 rounded-full blur-xl group-hover:bg-tertiary/20 transition-colors duration-500"></div>
+            
+            <div class="relative p-4 rounded-2xl bg-surface-container-highest text-primary group-hover:bg-primary group-hover:text-on-primary shadow-sm group-hover:shadow-md transition-all duration-300 mb-4 z-10">
+              <span class="material-symbols-outlined text-4xl block group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">music_note</span>
+            </div>
+            <span class="font-bold text-lg text-on-surface group-hover:text-primary transition-colors duration-300 z-10">Music</span>
+          </a>
+          
+          <a href="#" class="group relative flex flex-col items-center justify-center p-6 sm:p-8 bg-surface-container rounded-[2rem] hover:bg-surface-container-lowest transition-all duration-300 ease-out transform hover:-translate-y-2 hover:shadow-xl min-w-[150px] flex-1 border border-outline-variant/30 hover:border-primary/30 overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-24 h-24 bg-primary/10 rounded-full blur-xl group-hover:bg-primary/20 transition-colors duration-500"></div>
+            <div class="absolute -bottom-10 -left-10 w-24 h-24 bg-tertiary/10 rounded-full blur-xl group-hover:bg-tertiary/20 transition-colors duration-500"></div>
+            
+            <div class="relative p-4 rounded-2xl bg-surface-container-highest text-primary group-hover:bg-primary group-hover:text-on-primary shadow-sm group-hover:shadow-md transition-all duration-300 mb-4 z-10">
+              <span class="material-symbols-outlined text-4xl block group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300">sports_basketball</span>
+            </div>
+            <span class="font-bold text-lg text-on-surface group-hover:text-primary transition-colors duration-300 z-10">Sports</span>
+          </a>
+
+          <a href="#" class="group relative flex flex-col items-center justify-center p-6 sm:p-8 bg-surface-container rounded-[2rem] hover:bg-surface-container-lowest transition-all duration-300 ease-out transform hover:-translate-y-2 hover:shadow-xl min-w-[150px] flex-1 border border-outline-variant/30 hover:border-primary/30 overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-24 h-24 bg-primary/10 rounded-full blur-xl group-hover:bg-primary/20 transition-colors duration-500"></div>
+            <div class="absolute -bottom-10 -left-10 w-24 h-24 bg-tertiary/10 rounded-full blur-xl group-hover:bg-tertiary/20 transition-colors duration-500"></div>
+            
+            <div class="relative p-4 rounded-2xl bg-surface-container-highest text-primary group-hover:bg-primary group-hover:text-on-primary shadow-sm group-hover:shadow-md transition-all duration-300 mb-4 z-10">
+              <span class="material-symbols-outlined text-4xl block group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">devices</span>
+            </div>
+            <span class="font-bold text-lg text-on-surface group-hover:text-primary transition-colors duration-300 z-10">Tech</span>
+          </a>
+
+          <a href="#" class="group relative flex flex-col items-center justify-center p-6 sm:p-8 bg-surface-container rounded-[2rem] hover:bg-surface-container-lowest transition-all duration-300 ease-out transform hover:-translate-y-2 hover:shadow-xl min-w-[150px] flex-1 border border-outline-variant/30 hover:border-primary/30 overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-24 h-24 bg-primary/10 rounded-full blur-xl group-hover:bg-primary/20 transition-colors duration-500"></div>
+            <div class="absolute -bottom-10 -left-10 w-24 h-24 bg-tertiary/10 rounded-full blur-xl group-hover:bg-tertiary/20 transition-colors duration-500"></div>
+            
+            <div class="relative p-4 rounded-2xl bg-surface-container-highest text-primary group-hover:bg-primary group-hover:text-on-primary shadow-sm group-hover:shadow-md transition-all duration-300 mb-4 z-10">
+              <span class="material-symbols-outlined text-4xl block group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300">school</span>
+            </div>
+            <span class="font-bold text-lg text-on-surface group-hover:text-primary transition-colors duration-300 z-10">Education</span>
+          </a>
+
+          <a href="#" class="group relative flex flex-col items-center justify-center p-6 sm:p-8 bg-surface-container rounded-[2rem] hover:bg-surface-container-lowest transition-all duration-300 ease-out transform hover:-translate-y-2 hover:shadow-xl min-w-[150px] flex-1 border border-outline-variant/30 hover:border-primary/30 overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-24 h-24 bg-primary/10 rounded-full blur-xl group-hover:bg-primary/20 transition-colors duration-500"></div>
+            <div class="absolute -bottom-10 -left-10 w-24 h-24 bg-tertiary/10 rounded-full blur-xl group-hover:bg-tertiary/20 transition-colors duration-500"></div>
+            
+            <div class="relative p-4 rounded-2xl bg-surface-container-highest text-primary group-hover:bg-primary group-hover:text-on-primary shadow-sm group-hover:shadow-md transition-all duration-300 mb-4 z-10">
+              <span class="material-symbols-outlined text-4xl block group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">business_center</span>
+            </div>
+            <span class="font-bold text-lg text-on-surface group-hover:text-primary transition-colors duration-300 z-10">Business</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="max-w-7xl mx-auto px-6 py-16 scroll-reveal">
         <div class="flex justify-between items-end mb-10">
           <div>
             <h2 class="text-4xl font-bold text-on-surface mb-2">Events</h2>
@@ -463,7 +535,7 @@
       </section>
 
       <section
-        class="max-w-7xl mx-auto px-6 py-16 border-t border-surface-container-high"
+        class="max-w-7xl mx-auto px-6 py-16 border-t border-surface-container-high scroll-reveal"
       >
         <div class="flex justify-between items-end mb-10">
           <div>
@@ -488,7 +560,7 @@
         ></div>
       </section>
 
-      <section class="max-w-7xl mx-auto px-6 py-20">
+      <section class="max-w-7xl mx-auto px-6 py-20 scroll-reveal">
         <div
           class="bg-surface-container-high rounded-3xl p-12 text-center relative overflow-hidden"
         >

@@ -48,10 +48,10 @@ async function apiGet(endpoint, options = {}, isRetry = false) {
   if (response.status == 401) {
     if (isRetry) {
       localStorage.clear();
-      window.location.href = "../login.html"; // Redirect to login page on unauthorized access after retry
+      window.location.href = "./login.html"; // Redirect to login page on unauthorized access after retry
       throw new Error("Unauthorized access loop blocked.");
     }
-    const currentRefreshToken = getRefreshToken();
+    const currentRefreshToken = await getRefreshToken();
     const email = localStorage.getItem("email");
     await refreshToken(currentRefreshToken, email);
 
@@ -85,10 +85,10 @@ async function apiPost(endpoint, body, options = {}, isRetry = false) {
   if (response.status == 401) {
     if (isRetry) {
       localStorage.clear();
-      window.location.href = "../login.html";
+      window.location.href = "./login.html";
       throw new Error("Unauthorized access loop blocked.");
     }
-    const currentRefreshToken = getRefreshToken();
+    const currentRefreshToken = await getRefreshToken();
     const email = localStorage.getItem("email");
     await refreshToken(currentRefreshToken, email);
 
@@ -117,7 +117,11 @@ async function apiPostNormal(endpoint, body) {
     body: JSON.stringify(body),
   });
 
-  if (!response.ok) {
+  if (response.status == 401) {
+    localStorage.clear();
+    window.location.href = "./login.html";
+    throw new Error("Unauthorized access loop blocked.");
+  } else if (!response.ok) {
     const errorText = await response.text();
 
     console.log(
@@ -147,10 +151,10 @@ async function apiPut(endpoint, body, options = {}, isRetry = false) {
   if (response.status == 401) {
     if (isRetry) {
       localStorage.clear();
-      window.location.href = "../login.html";
+      window.location.href = "./login.html";
       throw new Error("Unauthorized access loop blocked.");
     }
-    const currentRefreshToken = getRefreshToken();
+    const currentRefreshToken = await getRefreshToken();
     const email = localStorage.getItem("email");
     await refreshToken(currentRefreshToken, email);
 
@@ -184,7 +188,7 @@ async function apiDelete(endpoint, options = {}, isRetry = false) {
   if (response.status == 401) {
     if (isRetry) {
       localStorage.clear();
-      window.location.href = "../login.html";
+      window.location.href = "./login.html";
       throw new Error("Unauthorized access loop blocked.");
     }
     const currentRefreshToken = getRefreshToken();
