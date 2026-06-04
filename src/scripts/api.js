@@ -117,11 +117,7 @@ async function apiPostNormal(endpoint, body) {
     body: JSON.stringify(body),
   });
 
-  if (response.status == 401) {
-    localStorage.clear();
-    window.location.href = "./login.html";
-    throw new Error("Unauthorized access loop blocked.");
-  } else if (!response.ok) {
+  if (!response.ok) {
     const errorText = await response.text();
 
     console.log(

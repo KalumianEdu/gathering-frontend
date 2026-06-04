@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 1. Grab the saved user data from local storage
   const savedUser = localStorage.getItem("user");
 
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("accessToken");
   const userRole = localStorage.getItem("userRole");
   if (!token) {
     window.location.href = "./login.html";
