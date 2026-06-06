@@ -185,7 +185,16 @@ async function handlePublishEvent(event, currentUser) {
   const startDate = document.getElementById("input-start-date").value;
   const endDate = document.getElementById("input-end-date").value;
   const location = document.getElementById("input-location").value;
-  const eventTypeID = document.getElementById("input-event-type").value;
+  const eventTypeString = document.getElementById("input-event-type").value;
+
+  const eventTypeMap = {
+    "Music": 1,
+    "Sport": 2,
+    "Tech": 3,
+    "Education": 4,
+    "Business": 5
+  };
+  const mappedEventTypeID = eventTypeMap[eventTypeString] || 1;
 
   // Convert price and capacity to numbers (default to 0 if left blank)
   const price = parseFloat(document.getElementById("input-price").value) || 0;
@@ -211,7 +220,7 @@ async function handlePublishEvent(event, currentUser) {
     location: location,
     seatCapacity: capacity,
     ticketPrice: price,
-    eventTypeID: 1, // <-- You can make this dynamic if you add an Event Type dropdown in the future
+    eventTypeID: mappedEventTypeID,
   };
 
   console.log("Submitting Event Payload:", eventPayload);
@@ -503,7 +512,7 @@ async function loadRoomOccupancy(organizerId) {
   // Fetch all rooms for this organizer
   const rooms = await fetchOrganizerRooms(organizerId);
 
-  container.innerHTML = ""; // Clear loading text
+  container.innerHTL = ""; // Clear loading text
 
   if (!rooms || rooms.length === 0) {
     container.innerHTML = `
@@ -550,12 +559,15 @@ async function loadRoomOccupancy(organizerId) {
           day: "numeric",
           year: "numeric",
         });
+
+        console.log("Booking Details:", booking);
+
         const days = booking.Days || booking.days || 1;
         const firstName =
-          booking.user.person.firstName || booking.firstName || "Guest";
-        const lastName = booking.user.person.lastName || booking.lastName || "";
+          booking.user?.firstName || booking.firstName || "Guest";
+        const lastName = booking.user?.lastName || booking.lastName || "";
         const email =
-          booking.user.person.contact.email ||
+          booking.user?.person?.contact?.email ||
           booking.email ||
           "No email provided";
 

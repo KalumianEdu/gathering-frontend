@@ -1,0 +1,527 @@
+<!doctype html>
+
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Education &amp; Learning | Terra Portal</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&amp;family=Nunito+Sans:ital,opsz,wght@0,200..1000;1,200..1000&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Material Symbols -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              surface: "#faf6f0",
+              "on-secondary-container": "#5e5548",
+              "on-secondary": "#ffffff",
+              "inverse-on-surface": "#f5f0e8",
+              outline: "#74796e",
+              "surface-bright": "#faf6f0",
+              "surface-container-lowest": "#ffffff",
+              "primary-fixed-dim": "#8ecf9e",
+              "on-tertiary-fixed-variant": "#554020",
+              "on-secondary-fixed-variant": "#4a4538",
+              "tertiary-fixed": "#f8e0a8",
+              "on-tertiary": "#ffffff",
+              "secondary-fixed": "#f0e8db",
+              "error-container": "#ffdad8",
+              "on-background": "#2e3230",
+              secondary: "#6b6358",
+              "outline-variant": "#c4c8bc",
+              "surface-variant": "#e4e0d8",
+              "surface-tint": "#4a7c59",
+              "on-primary-fixed-variant": "#2a6038",
+              "surface-container-highest": "#e4e0d8",
+              primary: "#4a7c59",
+              "on-primary-fixed": "#002110",
+              "on-primary": "#ffffff",
+              "primary-container": "#78a886",
+              "on-primary-container": "#d8f0de",
+              "on-error-container": "#690005",
+              "surface-dim": "#dbd7cf",
+              "on-surface": "#2e3230",
+              "inverse-primary": "#8ecf9e",
+              "secondary-fixed-dim": "#d4ccbf",
+              "tertiary-container": "#c4a66a",
+              "primary-fixed": "#c8e8d0",
+              "on-tertiary-container": "#554020",
+              "tertiary-fixed-dim": "#dcc48e",
+              "on-error": "#ffffff",
+              tertiary: "#705c30",
+              "surface-container-high": "#eae6de",
+              "surface-container-low": "#f5f1ea",
+              "on-surface-variant": "#4a4e4a",
+              "on-tertiary-fixed": "#221a05",
+              "secondary-container": "#f0e8db",
+              error: "#b83230",
+              "inverse-surface": "#2e3230",
+              "surface-container": "#f0ece4",
+              background: "#faf6f0",
+              "on-secondary-fixed": "#1e1a13",
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              lg: "1rem",
+              xl: "1.5rem",
+              full: "9999px",
+            },
+            fontFamily: {
+              headline: ["Literata"],
+              display: ["Literata"],
+              body: ["Nunito Sans"],
+              label: ["Nunito Sans"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .hero-mesh {
+        background-image:
+          radial-gradient(
+            at 100% 0%,
+            rgba(74, 124, 89, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            at 0% 100%,
+            rgba(112, 92, 48, 0.1) 0%,
+            transparent 50%
+          );
+      }
+    </style>
+  </head>
+  <body class="bg-background text-on-surface font-body antialiased">
+    <!-- TopNavBar Shell -->
+    <header
+      class="fixed top-0 right-0 left-0 h-16 flex justify-between items-center px-6 py-2 bg-[#faf6f0]/80 backdrop-blur-md dark:bg-stone-900/80 border-b border-stone-200 dark:border-stone-800 z-40"
+    >
+      <div class="flex items-center gap-6 flex-1">
+        <a
+          class="flex items-center gap-2 text-primary hover:opacity-80 transition-opacity"
+          href="#"
+        >
+          <h1 class="font-['Literata'] text-xl font-bold">Terra Portal</h1>
+        </a>
+        <div class="relative w-full max-w-md">
+          <span
+            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant"
+            >search</span
+          >
+          <input
+            class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full focus:ring-2 focus:ring-primary/20 text-sm"
+            placeholder="Search education events..."
+            type="text"
+          />
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <button
+          class="hover:bg-stone-100 dark:hover:bg-stone-800 p-2 rounded-full transition-all"
+        >
+          <span class="material-symbols-outlined text-on-surface-variant"
+            >notifications</span
+          >
+        </button>
+        <button
+          class="hover:bg-stone-100 dark:hover:bg-stone-800 p-2 rounded-full transition-all"
+        >
+          <span class="material-symbols-outlined text-on-surface-variant"
+            >help_outline</span
+          >
+        </button>
+        <div
+          class="h-8 w-8 rounded-full bg-tertiary-container overflow-hidden ml-2"
+        >
+          <img
+            alt="User profile picture"
+            class="h-full w-full object-cover"
+            src="https://lh3.googleusercontent.com/aida/AP1WRLs3z-kAJn0o5afBgRjauQsCzDAq5D2SMRNHxx_HDg0bLu4Yd1e3r01SG4BtMGDl_25gm7aWp4_kaLUjBpPexkwUq20sDkj6s55RfD5Vo6Ex94H9RopG4oapKtKmarj2_HD-LCtd4_Bw2ZoGzLjJ6ZT3mmxXMxtG23QxfciES_p5N1i6IiUmsV2tanNCi3USqHEwYyNN1rqIlftAHAJrfRjjSkrKhLA56dV9nhJYHG_PcQa5gugWKz_HOYc9"
+          />
+        </div>
+      </div>
+    </header>
+    <!-- Main Content Canvas -->
+    <main class="pt-16 min-h-screen">
+      <div class="max-w-7xl mx-auto px-8 py-8">
+        <!-- Navigation Controls -->
+        <div class="mb-6 flex items-center justify-between">
+          <button
+            class="flex items-center gap-2 px-4 py-2 text-on-surface-variant hover:text-primary transition-colors font-bold group"
+          >
+            <span class="material-symbols-outlined">arrow_back</span>
+            <span>Back to Home</span>
+          </button>
+          <div
+            class="text-xs font-bold text-on-surface-variant/50 uppercase tracking-widest"
+          >
+            Learning Portal
+          </div>
+        </div>
+        <!-- Hero Section -->
+        <section
+          class="relative rounded-3xl overflow-hidden mb-12 hero-mesh h-[320px] flex items-center px-12 border border-outline-variant/20"
+        >
+          <div class="relative z-10 max-w-2xl">
+            <span
+              class="inline-block px-4 py-1 rounded-full bg-tertiary/10 text-tertiary font-bold text-xs tracking-wider mb-4"
+              >LIFELONG LEARNING</span
+            >
+            <h1
+              class="text-5xl font-headline font-black text-on-surface mb-6 leading-tight"
+            >
+              Education &amp; Learning
+            </h1>
+            <p class="text-xl text-on-surface-variant max-w-lg leading-relaxed">
+              Nurture your growth with community-led workshops and advanced
+              certifications designed for the modern steward.
+            </p>
+          </div>
+          <div class="absolute right-0 top-0 h-full w-1/2">
+            <img
+              class="h-full w-full object-cover mix-blend-multiply opacity-30 grayscale hover:grayscale-0 transition-all duration-700"
+              data-alt="A warm and inviting educational environment with sunlight streaming through large windows onto rustic wooden tables. Students are engaged in a collaborative hands-on activity with botanical samples and journals. The scene uses earthy greens and warm ambers, reflecting a calm and focused atmosphere of growth and discovery."
+              src="https://lh3.googleusercontent.com/aida/AP1WRLtb83sri94y_3HDUCwU-UIyYvFAzn3YLoxthtmL-LJwXmpZRhmPReWN8VOxvl-XqvJOMXoNzTGYwGBVKVLuewz4Fqb7YnHyO_oonWwWwd2kywO4S2lavnc68FO7VAakuZOA7t9YvKWZwPbkL4JZypzULhhulXlVXJgFsxNwcbc7vMh7F0hmAnANhmAjfxodCQBNC0vEylULan7G9JPPHBALuzqH_ycT8nIW1DWGb3D9tokseXPSAo5zMt4d"
+            />
+          </div>
+        </section>
+        <!-- Filters & Categories -->
+        <div class="flex flex-wrap items-center justify-between gap-6 mb-12">
+          <div
+            class="flex items-center gap-3 no-scrollbar overflow-x-auto pb-2"
+          >
+            <button
+              class="px-6 py-2 rounded-full bg-primary text-on-primary font-bold shadow-md"
+            >
+              All Events
+            </button>
+            <button
+              class="px-6 py-2 rounded-full bg-surface-container hover:bg-surface-container-high transition-colors text-on-surface-variant font-medium"
+            >
+              Workshops
+            </button>
+            <button
+              class="px-6 py-2 rounded-full bg-surface-container hover:bg-surface-container-high transition-colors text-on-surface-variant font-medium"
+            >
+              Seminars
+            </button>
+            <button
+              class="px-6 py-2 rounded-full bg-surface-container hover:bg-surface-container-high transition-colors text-on-surface-variant font-medium"
+            >
+              Certification
+            </button>
+          </div>
+          <div
+            class="flex items-center gap-2 text-on-surface-variant text-sm font-medium border-l border-outline-variant/30 pl-6"
+          >
+            <span class="material-symbols-outlined text-sm">tune</span>
+            <span>Sort by: Upcoming</span>
+          </div>
+        </div>
+        <!-- Bento Grid Events -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+          <!-- Large Featured Card: Permaculture Masterclass -->
+          <div
+            class="md:col-span-8 group relative overflow-hidden rounded-3xl bg-surface-container-low border border-outline-variant/10 shadow-sm transition-all hover:shadow-xl"
+          >
+            <div class="flex flex-col md:flex-row h-full">
+              <div class="md:w-1/2 h-64 md:h-full overflow-hidden">
+                <img
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  data-alt="A lush and vibrant permaculture garden showing a diverse ecosystem of vegetables, herbs, and flowers growing together. The lighting is golden hour sun, casting soft long shadows and highlighting the deep forest greens and organic textures of the soil. The image evokes a sense of ancient wisdom meeting modern ecological practices."
+                  src="https://lh3.googleusercontent.com/aida/AP1WRLuOmlFCJuwxN42QiZdSE9fvfpXE3MywpuZb7HPM25rivSH7YON5UXnYfDHmaHeQYo4w0L_ESXZGiv5b53qcKinN1bi62nbK4fkBZFCvKkEQWaQVTtNbyFjbs3QHpGAnKIXQ6SAhDUqnN5Wt0VxaratyH91hBP5f-kndN3lxs_UzegvuWfMQQ-zipeFKrIlYagCN7IwfxUlt5tzra0BvhRkNHFTz2VgCDDB2HhUNmshcbR3rgeeSlrHnvgGj"
+                />
+              </div>
+              <div class="md:w-1/2 p-8 flex flex-col justify-between">
+                <div>
+                  <div class="flex justify-between items-start mb-4">
+                    <span
+                      class="px-3 py-1 bg-primary/10 text-primary rounded-lg text-xs font-bold uppercase"
+                      >Certification</span
+                    >
+                    <span class="text-tertiary font-bold">$450</span>
+                  </div>
+                  <h3
+                    class="text-3xl font-headline font-bold text-on-surface mb-3"
+                  >
+                    Permaculture Masterclass
+                  </h3>
+                  <p class="text-on-surface-variant mb-6 leading-relaxed">
+                    A deep dive into regenerative landscape design. Learn to
+                    observe, analyze, and implement sustainable ecosystems from
+                    the ground up.
+                  </p>
+                  <div class="space-y-3">
+                    <div
+                      class="flex items-center gap-2 text-sm text-on-surface-variant"
+                    >
+                      <span
+                        class="material-symbols-outlined text-primary text-lg"
+                        >calendar_today</span
+                      >
+                      <span>Starts Oct 12, 2023 • 6 Weeks</span>
+                    </div>
+                    <div
+                      class="flex items-center gap-2 text-sm text-on-surface-variant"
+                    >
+                      <span
+                        class="material-symbols-outlined text-primary text-lg"
+                        >location_on</span
+                      >
+                      <span>Terra Hub &amp; Field Site</span>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  class="mt-8 w-full border-2 border-primary text-primary font-bold py-3 rounded-xl hover:bg-primary hover:text-on-primary transition-all"
+                >
+                  Enroll Now
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Small Card: Design Thinking Seminar -->
+          <div
+            class="md:col-span-4 group relative overflow-hidden rounded-3xl bg-surface-container-low border border-outline-variant/10 shadow-sm transition-all hover:shadow-xl"
+          >
+            <div class="h-48 overflow-hidden">
+              <img
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                data-alt="A minimalist workshop space featuring a large whiteboard covered in colorful post-it notes and sketches. Natural light fills the room, illuminating a group of creative professionals engaged in a thoughtful brainstorming session. The aesthetic is modern and clean with warm wood accents and soft sage green details."
+                src="https://lh3.googleusercontent.com/aida/AP1WRLsxhxFjK0HEKTAzO7dulFawY_3G_uZly0nLoRmxE0e3agSGZlxOJPwsrEDdgwXLQTAPTjlp9qrfWDfGChjE1Bss4ay9QnT5P4iLIXimIbVfJCzW0oBuYL-etxuUWZ_SVc-_a0-8y6Czl56Y91omWk4lKc2qrswmes4u_9t9i_pU-aPTXHsQmpBfZ76tyIFDykNdhMdfeVINdWFAOTdbfhqwMKfxjNYbRwgn5Xq0eNivyCR2McgMNAxET6OK"
+              />
+            </div>
+            <div class="p-6">
+              <span
+                class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-lg text-xs font-bold uppercase mb-4 inline-block"
+                >Seminars</span
+              >
+              <h3 class="text-xl font-headline font-bold text-on-surface mb-2">
+                Design Thinking Seminar
+              </h3>
+              <p class="text-on-surface-variant text-sm mb-6">
+                Unlock creative problem-solving techniques used by industry
+                leaders to drive innovation.
+              </p>
+              <div class="flex items-center justify-between">
+                <div class="flex -space-x-2">
+                  <img
+                    alt="Attendee 1"
+                    class="w-8 h-8 rounded-full border-2 border-surface"
+                    src="https://lh3.googleusercontent.com/aida/AP1WRLt88qkvTO3iUugyed85HSD8FctGVzLb1nwS12Da-iHiI1QVXuhfXP5uTLG2xRhhI8CINyYfLkdvsbphdinSUcskGl5DpF73LLOmGv-uXfTApqAzSI59L3EnDpYDfqXorTX0Y-J0F7vLZrFtr3ri_9JBsG9dvyBFRSlTYgKEE3JAuFiewq_zC_voniUkY-Inyn6I54Ve8gpem-5iqMra_xvpOiivs_tl0S13r4l7YL0wqkjMVAk41WfoC8M"
+                  />
+                  <img
+                    alt="Attendee 2"
+                    class="w-8 h-8 rounded-full border-2 border-surface"
+                    src="https://lh3.googleusercontent.com/aida/AP1WRLv5TMPz6xeXDOQWu19-YUwGHOlsA6kdWOMQpdvk01vvnfTZk1cuh_SXi9Qi-ZZon6xz-fWfxSZZl3rjBSsiQbu7DahUS4wc1yuOW130IhHb5NrhaFpqaXWgDLjO8mNFhC_YcmfCnyO3zfDw-PIYrX9ukc2Pw33nVgmMc0H4UVyvzQoMbFRaPhFUgZ9baVgCmAnz-ZJ-mUtbLe9y_4AfvbjL3vkrdu_JHBNHriLiK3wUm2DXYhtx17Ew5kE"
+                  />
+                  <div
+                    class="w-8 h-8 rounded-full border-2 border-surface bg-surface-variant flex items-center justify-center text-[10px] font-bold text-on-surface-variant"
+                  >
+                    +12
+                  </div>
+                </div>
+                <span class="text-on-surface-variant text-xs font-medium"
+                  >Tomorrow, 10:00 AM</span
+                >
+              </div>
+            </div>
+          </div>
+          <!-- Another Secondary Card: Botanical Illustration -->
+          <div
+            class="md:col-span-4 group relative overflow-hidden rounded-3xl bg-surface-container-low border border-outline-variant/10 shadow-sm transition-all hover:shadow-xl"
+          >
+            <div class="h-48 overflow-hidden">
+              <img
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                data-alt="Close-up detail of an artist's hand sketching a delicate fern leaf with a fine-tipped pen. Antique botanical journals and pressed flowers are scattered across an oak desk. The lighting is warm and directional, highlighting the intricate textures of the paper and the focused, meditative quality of the artistic process."
+                src="https://lh3.googleusercontent.com/aida/AP1WRLsNR1dsHmE4Xcyr3XnNZVMgGrDquNW0wilT8Siy3r_2_Rj2hG9Wx2MU30hrVH9mmOVtpv7PstKe2tIKrfBPq_TkAPbJ1KrIzENTpKRMZt3xAbQG_6C0UlcUkpsE09pWdvOiuS-CmEJ4MAMCPnueDi9J_UqUeBnZ8zfHbxGWuVUIwL_FZPVKb18GJTOL5R4liGu0_JUfgQu6hfBQMRcO8TCbVP_hwIuJrjNKFYamz4fOx29Mej9UZKOpnRbJ"
+              />
+            </div>
+            <div class="p-6">
+              <span
+                class="px-3 py-1 bg-tertiary/10 text-tertiary rounded-lg text-xs font-bold uppercase mb-4 inline-block"
+                >Workshops</span
+              >
+              <h3 class="text-xl font-headline font-bold text-on-surface mb-2">
+                Botanical Illustration
+              </h3>
+              <p class="text-on-surface-variant text-sm mb-6">
+                Capture the intricate beauty of flora through classical
+                sketching techniques and observation.
+              </p>
+              <button
+                class="w-full py-2 bg-surface text-primary border border-primary/20 rounded-xl font-bold group-hover:bg-primary group-hover:text-on-primary transition-all"
+              >
+                Details
+              </button>
+            </div>
+          </div>
+          <!-- Wide Horizontal Card: Urban Beekeeping -->
+          <div
+            class="md:col-span-8 group relative overflow-hidden rounded-3xl bg-surface-container-low border border-outline-variant/10 shadow-sm transition-all hover:shadow-xl"
+          >
+            <div class="flex flex-col md:flex-row h-full">
+              <div class="p-8 flex-grow flex flex-col justify-between">
+                <div>
+                  <h3
+                    class="text-2xl font-headline font-bold text-on-surface mb-2"
+                  >
+                    Urban Beekeeping 101
+                  </h3>
+                  <p class="text-on-surface-variant mb-6">
+                    Support your local ecosystem by learning the fundamentals of
+                    sustainable apiary management in city environments.
+                  </p>
+                  <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div
+                      class="p-3 bg-surface rounded-2xl flex items-center gap-3"
+                    >
+                      <span class="material-symbols-outlined text-tertiary"
+                        >workspace_premium</span
+                      >
+                      <span class="text-xs font-bold">Level: Beginner</span>
+                    </div>
+                    <div
+                      class="p-3 bg-surface rounded-2xl flex items-center gap-3"
+                    >
+                      <span class="material-symbols-outlined text-tertiary"
+                        >groups</span
+                      >
+                      <span class="text-xs font-bold">Cap: 15 People</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-4">
+                  <button
+                    class="flex-1 bg-secondary text-on-secondary font-bold py-3 rounded-xl"
+                  >
+                    Join Waitlist
+                  </button>
+                  <button
+                    class="p-3 bg-surface text-on-surface-variant border border-outline-variant/30 rounded-xl hover:text-primary transition-colors"
+                  >
+                    <span class="material-symbols-outlined">share</span>
+                  </button>
+                </div>
+              </div>
+              <div class="md:w-2/5 h-48 md:h-auto overflow-hidden">
+                <img
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  data-alt="A series of colorful honeybee hives placed on a wooden platform against a soft-focus urban sunset. The air is filled with golden particles, and the warm evening light glints off the honeybees. The mood is tranquil and industrious, emphasizing the harmony between nature and urban life."
+                  src="https://lh3.googleusercontent.com/aida/AP1WRLup4kVBmvjQRvhmEvietyBQGoZbr62Qm_sQFys7r8wgRLuj74ATFxC_eKdaNhLkv6T0ChdItY9rEeZ3aKG8zz-5Lu0F60wUE6C1YPSgwnKarVBjsH14lmgiHtroUzSpRLNR726dahwX8Jg2X2Iw0ehhQSxghyVpgcRp5g2FKAV_xY9XENIcg6ZGVVFL-c5T3I89KhYduKmlaxYy-Hm3LFK-Z7mFIfhyIvl8hZnElEcsWLLvx_lPp4Q6-ac9"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Knowledge Base Teaser Section -->
+        <section
+          class="mt-20 p-12 bg-on-primary-container/10 rounded-3xl border border-primary/5 relative overflow-hidden"
+        >
+          <div class="relative z-10 grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 class="text-3xl font-headline font-bold text-on-surface mb-4">
+                Deepen Your Understanding
+              </h2>
+              <p class="text-on-surface-variant mb-8 leading-relaxed">
+                Our Education track isn't just about events; it's about building
+                a legacy of wisdom. Access our digital archive of research
+                papers and community-led guides.
+              </p>
+              <div class="flex gap-4">
+                <a
+                  class="flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all"
+                  href="#"
+                >
+                  <span>Browse Library</span>
+                  <span class="material-symbols-outlined">arrow_forward</span>
+                </a>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div
+                class="bg-surface p-4 rounded-2xl shadow-sm border border-outline-variant/10 transform hover:-translate-y-1 transition-transform"
+              >
+                <span class="material-symbols-outlined text-primary mb-2"
+                  >menu_book</span
+                >
+                <h4 class="font-bold text-sm">Resource Guides</h4>
+              </div>
+              <div
+                class="bg-surface p-4 rounded-2xl shadow-sm border border-outline-variant/10 transform hover:-translate-y-1 transition-transform translate-y-4"
+              >
+                <span class="material-symbols-outlined text-primary mb-2"
+                  >video_library</span
+                >
+                <h4 class="font-bold text-sm">Video Series</h4>
+              </div>
+            </div>
+          </div>
+          <!-- Subtle decorative element -->
+          <div
+            class="absolute -right-20 -bottom-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl"
+          ></div>
+        </section>
+      </div>
+      <!-- Footer Info -->
+      <footer
+        class="max-w-7xl mx-auto px-8 py-12 border-t border-outline-variant/20 flex flex-col md:flex-row justify-between items-center gap-6"
+      >
+        <div class="text-on-surface-variant text-sm">
+          © 2023 Terra Portal. All education programs are community-verified.
+        </div>
+        <div
+          class="flex items-center gap-8 text-on-surface-variant text-sm font-medium"
+        >
+          <a class="hover:text-primary transition-colors" href="#"
+            >Privacy Policy</a
+          >
+          <a class="hover:text-primary transition-colors" href="#"
+            >Member Terms</a
+          >
+          <a class="hover:text-primary transition-colors" href="#"
+            >Contact Support</a
+          >
+        </div>
+      </footer>
+    </main>
+    <script>
+      // Search bar focus effect
+      const searchInput = document.querySelector('input[type="text"]');
+      searchInput.addEventListener("focus", () => {
+        searchInput.parentElement.classList.add("ring-2", "ring-primary/20");
+      });
+      searchInput.addEventListener("blur", () => {
+        searchInput.parentElement.classList.remove("ring-2", "ring-primary/20");
+      });
+    </script>
+  </body>
+</html>

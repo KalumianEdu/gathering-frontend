@@ -31,6 +31,36 @@
         --radius-xs: 6px;
       }
 
+      body.dark-mode {
+        --green-dark: #0f1f17;
+        --green-mid: #1f4b31;
+        --green-soft: #70a879;
+        --green-light: #9fd0a8;
+        --green-pale: #263d2d;
+        --green-mist: #1a2a20;
+        --cream: #0d1510;
+        --cream-dark: #26352b;
+        --brown-warm: #d2b987;
+        --text-dark: #edf6ee;
+        --text-mid: #c8dccb;
+        --text-soft: #9db4a0;
+        --text-muted: #758978;
+        --white: #17221b;
+        --error: #ff8074;
+        --error-bg: #351b1a;
+        --warn: #f0b35c;
+        --warn-bg: #352614;
+        --info: #78b9e6;
+        --info-bg: #132838;
+        --debug: #8fcf9a;
+        --debug-bg: #172c1e;
+        --critical: #d58aff;
+        --critical-bg: #2d1838;
+        --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.28);
+        --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.34);
+        --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.42);
+      }
+
       *,
       *::before,
       *::after {
@@ -124,6 +154,51 @@
         display: flex;
         align-items: center;
         gap: 12px;
+      }
+      .nav-back {
+        color: var(--white);
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 20px;
+        padding: 6px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.15s;
+        white-space: nowrap;
+      }
+      .nav-back:hover {
+        background: rgba(255, 255, 255, 0.18);
+        border-color: rgba(255, 255, 255, 0.28);
+      }
+      .nav-back .material-icons {
+        font-size: 16px;
+      }
+      .theme-toggle {
+        color: var(--white);
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 20px;
+        padding: 6px 12px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.15s;
+        white-space: nowrap;
+      }
+      .theme-toggle:hover {
+        background: rgba(255, 255, 255, 0.18);
+        border-color: rgba(255, 255, 255, 0.28);
+      }
+      .theme-toggle .material-icons {
+        font-size: 16px;
       }
       .nav-badge {
         background: var(--error);
@@ -248,6 +323,20 @@
         position: relative;
         overflow: hidden;
       }
+      .stat-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            circle at 80% 18%,
+            color-mix(in srgb, var(--card-accent, var(--green-soft)) 22%, transparent),
+            transparent 42%
+          );
+        opacity: 0;
+        transition: opacity 0.2s;
+        pointer-events: none;
+      }
       .stat-card::after {
         content: "";
         position: absolute;
@@ -261,9 +350,14 @@
         transition: transform 0.2s;
       }
       .stat-card:hover {
-        border-color: var(--green-light);
-        box-shadow: var(--shadow-md);
-        transform: translateY(-2px);
+        border-color: var(--card-accent, var(--green-light));
+        box-shadow:
+          var(--shadow-md),
+          0 10px 28px color-mix(in srgb, var(--card-accent, var(--green-soft)) 18%, transparent);
+        transform: translateY(-4px);
+      }
+      .stat-card:hover::before {
+        opacity: 1;
       }
       .stat-card:hover::after,
       .stat-card.active::after {
@@ -283,10 +377,19 @@
         justify-content: center;
         margin-bottom: 12px;
         background: var(--icon-bg, var(--green-mist));
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .stat-card:hover .stat-icon-wrap {
+        transform: scale(1.08) rotate(-3deg);
+        box-shadow: 0 8px 18px color-mix(in srgb, var(--card-accent, var(--green-soft)) 24%, transparent);
       }
       .stat-icon-wrap .material-icons {
         font-size: 20px;
         color: var(--icon-color, var(--green-soft));
+        transition: transform 0.2s;
+      }
+      .stat-card:hover .stat-icon-wrap .material-icons {
+        transform: scale(1.08);
       }
       .stat-num {
         font-family: "DM Serif Display", serif;
@@ -461,18 +564,29 @@
         background: var(--cream);
         color: var(--text-soft);
         cursor: pointer;
-        transition: all 0.15s;
+        transition:
+          background 0.15s,
+          border-color 0.15s,
+          box-shadow 0.15s,
+          color 0.15s,
+          transform 0.15s;
         display: flex;
         align-items: center;
         gap: 5px;
       }
       .chip .material-icons {
         font-size: 14px;
+        transition: transform 0.15s;
       }
       .chip:hover {
         border-color: var(--green-light);
         color: var(--green-mid);
         background: var(--green-mist);
+        box-shadow: 0 8px 18px rgba(45, 74, 45, 0.12);
+        transform: translateY(-2px);
+      }
+      .chip:hover .material-icons {
+        transform: scale(1.12);
       }
       .chip.active {
         background: var(--green-dark);
@@ -494,6 +608,30 @@
       .chip-debug.active {
         background: var(--debug);
         border-color: var(--debug);
+      }
+      .chip-error:hover {
+        background: var(--error-bg);
+        border-color: var(--error);
+        color: var(--error);
+        box-shadow: 0 8px 18px color-mix(in srgb, var(--error) 18%, transparent);
+      }
+      .chip-warn:hover {
+        background: var(--warn-bg);
+        border-color: var(--warn);
+        color: var(--warn);
+        box-shadow: 0 8px 18px color-mix(in srgb, var(--warn) 18%, transparent);
+      }
+      .chip-info:hover {
+        background: var(--info-bg);
+        border-color: var(--info);
+        color: var(--info);
+        box-shadow: 0 8px 18px color-mix(in srgb, var(--info) 18%, transparent);
+      }
+      .chip-debug:hover {
+        background: var(--debug-bg);
+        border-color: var(--debug);
+        color: var(--debug);
+        box-shadow: 0 8px 18px color-mix(in srgb, var(--debug) 18%, transparent);
       }
 
       .filter-right {
@@ -646,29 +784,55 @@
         border-radius: 20px;
         white-space: nowrap;
         letter-spacing: 0.3px;
+        transition:
+          box-shadow 0.16s,
+          transform 0.16s,
+          background 0.16s;
       }
       .badge .material-icons {
         font-size: 13px;
+        transition: transform 0.16s;
+      }
+      .log-row:hover .badge {
+        transform: translateX(2px) scale(1.03);
+      }
+      .log-row:hover .badge .material-icons {
+        transform: rotate(-8deg) scale(1.12);
       }
       .badge-Error {
         background: var(--error-bg);
         color: var(--error);
       }
+      .log-row:hover .badge-Error {
+        box-shadow: 0 0 0 1px var(--error), 0 8px 20px color-mix(in srgb, var(--error) 22%, transparent);
+      }
       .badge-Warning {
         background: var(--warn-bg);
         color: var(--warn);
+      }
+      .log-row:hover .badge-Warning {
+        box-shadow: 0 0 0 1px var(--warn), 0 8px 20px color-mix(in srgb, var(--warn) 22%, transparent);
       }
       .badge-Information {
         background: var(--info-bg);
         color: var(--info);
       }
+      .log-row:hover .badge-Information {
+        box-shadow: 0 0 0 1px var(--info), 0 8px 20px color-mix(in srgb, var(--info) 22%, transparent);
+      }
       .badge-Debug {
         background: var(--debug-bg);
         color: var(--debug);
       }
+      .log-row:hover .badge-Debug {
+        box-shadow: 0 0 0 1px var(--debug), 0 8px 20px color-mix(in srgb, var(--debug) 22%, transparent);
+      }
       .badge-Critical {
         background: var(--critical-bg);
         color: var(--critical);
+      }
+      .log-row:hover .badge-Critical {
+        box-shadow: 0 0 0 1px var(--critical), 0 8px 20px color-mix(in srgb, var(--critical) 22%, transparent);
       }
 
       .log-msg {
@@ -818,6 +982,54 @@
       .toast .material-icons {
         font-size: 18px;
         color: var(--green-light);
+      }
+
+      body.dark-mode .navbar,
+      body.dark-mode .footer {
+        background: #0a120d;
+      }
+
+      body.dark-mode .hero-strip {
+        background: linear-gradient(135deg, #0a120d 0%, #163522 100%);
+      }
+
+      body.dark-mode .nav-brand,
+      body.dark-mode .nav-link:hover,
+      body.dark-mode .nav-link.active,
+      body.dark-mode .nav-back,
+      body.dark-mode .theme-toggle,
+      body.dark-mode .hero-title,
+      body.dark-mode .btn-primary,
+      body.dark-mode .chip.active,
+      body.dark-mode .footer {
+        color: #f7fbf6;
+      }
+
+      body.dark-mode .nav-badge {
+        color: #fff7f5;
+      }
+
+      body.dark-mode .nav-avatar {
+        color: #f7fbf6;
+        background: #244d31;
+      }
+
+      body.dark-mode .stat-card,
+      body.dark-mode .chart-card,
+      body.dark-mode .filter-bar,
+      body.dark-mode .table-card,
+      body.dark-mode .exc-box {
+        background: #17221b;
+      }
+
+      body.dark-mode .log-row {
+        border-bottom-color: #24342a;
+      }
+
+      body.dark-mode .log-row:hover,
+      body.dark-mode .log-row.expanded,
+      body.dark-mode .exc-cell {
+        background: #1d2c22;
       }
 
       /* ─── FOOTER ─── */

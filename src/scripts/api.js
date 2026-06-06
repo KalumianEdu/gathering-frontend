@@ -506,6 +506,7 @@ async function fetchOrganizerDashboardInfo(organizerId) {
   );
   return data;
 }
+
 // CRITICAL: Remember to add fetchOrganizerDashboardInfo to your export { ... } at the bottom!
 // CRITICAL: Remember to add fetchUserRoomBookings to your export { ... } at the bottom!
 // Don't forget to add fetchUserBookings to your export list at the bottom!

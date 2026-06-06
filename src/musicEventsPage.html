@@ -1,0 +1,72 @@
+<!doctype html>
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Under Development - Gathering Events</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,700;0,800;1,400&family=Nunito+Sans:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              tertiary: "#705c30",
+              primary: "#4a7c59",
+              secondary: "#6b6358",
+              background: "#faf6f0",
+              "on-surface": "#2e3230",
+            },
+            fontFamily: {
+              headline: ["Literata"],
+              body: ["Nunito Sans"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+    </style>
+  </head>
+  <body class="bg-background text-on-surface h-screen flex flex-col font-body">
+    <header class="bg-[#faf6f0] shadow-sm py-4 px-6 border-b border-stone-200">
+      <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <div class="text-xl font-bold font-headline text-primary cursor-pointer" onclick="window.location.href='./userMain.html'">
+          Gathering Events
+        </div>
+        <button onclick="window.history.back()" class="text-secondary hover:text-primary transition-colors flex items-center gap-2 font-bold text-sm">
+          <span class="material-symbols-outlined text-sm">arrow_back</span>
+          Go Back
+        </button>
+      </div>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center px-4">
+      <div class="text-center bg-white p-12 md:p-24 rounded-3xl shadow-xl border border-stone-200/50 max-w-2xl w-full">
+        <span class="material-symbols-outlined text-6xl md:text-8xl text-stone-300 mb-6 block">engineering</span>
+        <h1 class="text-4xl md:text-5xl font-black font-headline text-primary mb-4">Under Development</h1>
+        <p class="text-lg md:text-xl text-stone-500 max-w-md mx-auto">
+          We are working hard to build out the specific event category pages. This feature will be available soon!
+        </p>
+        <button onclick="window.location.href='./userMain.html'" class="mt-8 px-8 py-3 bg-primary text-white rounded-xl font-bold hover:bg-opacity-90 transition-all shadow-md">
+          Return to Home
+        </button>
+      </div>
+    </main>
+  </body>
+</html>

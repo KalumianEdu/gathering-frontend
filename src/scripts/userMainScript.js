@@ -9,19 +9,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Scroll Reveal Animation Logic (Run for everyone)
   const revealElements = document.querySelectorAll(".scroll-reveal");
-  const revealObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("active");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px"
-  });
+  const revealObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px",
+    },
+  );
 
-  revealElements.forEach(el => revealObserver.observe(el));
+  revealElements.forEach((el) => revealObserver.observe(el));
 
   // 1. Check for saved user session
   const savedUserString = localStorage.getItem("user");
@@ -54,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const switchToOrganizerBtn = document.getElementById(
     "switch-to-organizer-btn",
   );
+  const switchToAdminBtn = document.getElementById("switch-to-admin-btn");
   const userRole = Number(
     currentUser.userType ||
       currentUser.userTypeId ||
@@ -61,6 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.getItem("userRole"),
   );
   const isOrganizer = userRole === 2;
+  const isAdmin = userRole === 1;
 
   if (switchToOrganizerBtn) {
     if (isOrganizer) {
@@ -73,6 +78,20 @@ document.addEventListener("DOMContentLoaded", () => {
       switchToOrganizerBtn.classList.add("hidden");
       switchToOrganizerBtn.classList.remove("inline-flex");
       switchToOrganizerBtn.removeAttribute("href");
+    }
+  }
+
+  if (switchToAdminBtn) {
+    if (isAdmin) {
+      switchToAdminBtn.classList.remove("hidden");
+      switchToAdminBtn.classList.add("inline-flex");
+      switchToAdminBtn.addEventListener("click", () => {
+        window.location.href = "./adminMain.html";
+      });
+    } else {
+      switchToAdminBtn.classList.add("hidden");
+      switchToAdminBtn.classList.remove("inline-flex");
+      switchToAdminBtn.removeAttribute("href");
     }
   }
 
@@ -147,12 +166,19 @@ async function loadEvents() {
     eventsContainer.innerHTML = `<p class="col-span-3 text-secondary">No upcoming events found.</p>`;
     return;
   }
-
+  const typeEvents = {
+    1: "Music",
+    2: "Sport",
+    3: "Tech",
+    4: "Education",
+    5: "Business",
+  };
   events.forEach((event) => {
     const title = event.eventName || event.title || "Untitled Event";
     const price = event.price ? `$${event.price}` : "Free";
     const location = event.location || "TBD";
-    const eventType = event.eventType || event.type || event.category || "Event";
+    const eventType =
+      typeEvents[event.eventTypeID] || event.type || event.category || "Event";
     const date = event.startDate
       ? new Date(event.startDate).toLocaleDateString() +
         " - " +

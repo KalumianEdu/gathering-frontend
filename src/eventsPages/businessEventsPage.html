@@ -1,0 +1,534 @@
+<!doctype html>
+
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Business &amp; Networking | Terra Events</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;0,700;0,900;1,400&amp;family=Nunito+Sans:wght@300;400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              surface: "#faf6f0",
+              "on-secondary-container": "#5e5548",
+              "on-secondary": "#ffffff",
+              "inverse-on-surface": "#f5f0e8",
+              outline: "#74796e",
+              "surface-bright": "#faf6f0",
+              "surface-container-lowest": "#ffffff",
+              "primary-fixed-dim": "#8ecf9e",
+              "on-tertiary-fixed-variant": "#554020",
+              "on-secondary-fixed-variant": "#4a4538",
+              "tertiary-fixed": "#f8e0a8",
+              "on-tertiary": "#ffffff",
+              "secondary-fixed": "#f0e8db",
+              "error-container": "#ffdad8",
+              "on-background": "#2e3230",
+              secondary: "#6b6358",
+              "outline-variant": "#c4c8bc",
+              "surface-variant": "#e4e0d8",
+              "surface-tint": "#4a7c59",
+              "on-primary-fixed-variant": "#2a6038",
+              "surface-container-highest": "#e4e0d8",
+              primary: "#4a7c59",
+              "on-primary-fixed": "#002110",
+              "on-primary": "#ffffff",
+              "primary-container": "#78a886",
+              "on-primary-container": "#d8f0de",
+              "on-error-container": "#690005",
+              "surface-dim": "#dbd7cf",
+              "on-surface": "#2e3230",
+              "inverse-primary": "#8ecf9e",
+              "secondary-fixed-dim": "#d4ccbf",
+              "tertiary-container": "#c4a66a",
+              "primary-fixed": "#c8e8d0",
+              "on-tertiary-container": "#554020",
+              "tertiary-fixed-dim": "#dcc48e",
+              "on-error": "#ffffff",
+              tertiary: "#705c30",
+              "surface-container-high": "#eae6de",
+              "surface-container-low": "#f5f1ea",
+              "on-surface-variant": "#4a4e4a",
+              "on-tertiary-fixed": "#221a05",
+              "secondary-container": "#f0e8db",
+              error: "#b83230",
+              "inverse-surface": "#2e3230",
+              "surface-container": "#f0ece4",
+              background: "#faf6f0",
+              "on-secondary-fixed": "#1e1a13",
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              lg: "1rem",
+              xl: "1.5rem",
+              full: "9999px",
+            },
+            fontFamily: {
+              headline: ["Literata"],
+              display: ["Literata"],
+              body: ["Nunito Sans"],
+              label: ["Nunito Sans"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Nunito Sans", sans-serif;
+      }
+      h1,
+      h2,
+      h3,
+      .font-headline {
+        font-family: "Literata", serif;
+      }
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+        vertical-align: middle;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #c4c8bc;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body class="bg-background text-on-surface antialiased">
+    <!-- Main Content Canvas - Updated to full width (no ml-64) -->
+    <main class="min-h-screen">
+      <!-- TopNavBar -->
+      <header
+        class="w-full h-16 sticky top-0 z-40 bg-[#faf6f0]/80 backdrop-blur-md dark:bg-stone-900/80 border-b border-stone-200 dark:border-stone-800 shadow-[0_4px_20px_rgba(46,50,48,0.06)] flex justify-between items-center px-6 py-2"
+      >
+        <div class="flex items-center gap-6">
+          <!-- Back Button -->
+          <a
+            class="flex items-center gap-2 text-primary hover:bg-primary/5 px-3 py-1.5 rounded-lg transition-colors font-bold text-sm"
+            href="/"
+          >
+            <span class="material-symbols-outlined" data-icon="arrow_back"
+              >arrow_back</span
+            >
+            Back to Home
+          </a>
+          <div class="h-6 w-px bg-outline-variant mx-2"></div>
+          <div class="relative">
+            <span
+              class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline"
+              data-icon="search"
+              >search</span
+            >
+            <input
+              class="pl-10 pr-4 py-1.5 bg-surface-container-low border-none rounded-full text-sm focus:ring-2 focus:ring-primary w-64 transition-all"
+              placeholder="Search events..."
+              type="text"
+            />
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <button
+            class="hover:bg-stone-100 dark:hover:bg-stone-800 p-2 rounded-full transition-all text-on-surface"
+          >
+            <span class="material-symbols-outlined" data-icon="notifications"
+              >notifications</span
+            >
+          </button>
+          <div
+            class="flex items-center gap-3 ml-2 border-l pl-4 border-outline-variant"
+          >
+            <img
+              alt="User profile picture"
+              class="w-8 h-8 rounded-full border border-primary-container"
+              src="https://lh3.googleusercontent.com/aida/AP1WRLsbvao75OfYPx2crWfTaR6n22abBBWpHcYwPJDRRqwaMmGgPwxEhx-_eTuDe7Y-is-9evg_c60W3QK-T79Ai4O0yyNqip4T0dvPPCVd0W5cXP7IhS6C0Cr1GU9g53nrWQ-ckpO0HTIaYiNtRc6CBeuxFEcL5iXTnO9vGSSzhMFDItPIZrZts5NF_re3a9vttJKMiY_ELu5thDlOArFzJ-lwx3mFQGRj8Cqba2ykyZk3g5bcTHK2R9liDb8h"
+            />
+            <span class="text-sm font-bold text-on-surface hidden md:block"
+              >Julian Rivers</span
+            >
+          </div>
+        </div>
+      </header>
+      <!-- Page Content -->
+      <div class="p-8 max-w-7xl mx-auto">
+        <!-- Breadcrumbs & Title -->
+        <div class="mb-10">
+          <nav class="flex text-sm text-secondary mb-2 space-x-2">
+            <a class="hover:text-primary transition-colors" href="#">Events</a>
+            <span>/</span>
+            <span class="text-on-surface font-semibold"
+              >Business &amp; Networking</span
+            >
+          </nav>
+          <h1 class="text-5xl font-black text-on-surface mb-4 tracking-tight">
+            Business &amp; Networking
+          </h1>
+          <p class="text-on-surface-variant text-lg max-w-2xl leading-relaxed">
+            Connecting purpose-driven professionals through organic networking,
+            insightful retreats, and strategic growth conferences.
+          </p>
+        </div>
+        <!-- Contextual Filters Section -->
+        <section class="flex flex-wrap items-center gap-3 mb-12">
+          <button
+            class="px-6 py-2.5 bg-primary text-on-primary rounded-full font-bold shadow-sm transition-all flex items-center gap-2"
+          >
+            <span class="material-symbols-outlined text-sm" data-icon="tune"
+              >tune</span
+            >
+            All Events
+          </button>
+          <button
+            class="px-6 py-2.5 bg-surface-container text-on-surface hover:bg-surface-container-high rounded-full font-medium transition-all"
+          >
+            Startups
+          </button>
+          <button
+            class="px-6 py-2.5 bg-surface-container text-on-surface hover:bg-surface-container-high rounded-full font-medium transition-all"
+          >
+            Leadership
+          </button>
+          <button
+            class="px-6 py-2.5 bg-surface-container text-on-surface hover:bg-surface-container-high rounded-full font-medium transition-all"
+          >
+            Social Impact
+          </button>
+          <div class="h-6 w-px bg-outline-variant mx-2"></div>
+          <button
+            class="px-6 py-2.5 text-primary hover:bg-primary/5 rounded-full font-medium transition-all flex items-center gap-1"
+          >
+            <span class="material-symbols-outlined" data-icon="calendar_today"
+              >calendar_today</span
+            >
+            Date Range
+          </button>
+        </section>
+        <!-- Featured Asymmetric Grid -->
+        <div class="grid grid-cols-12 gap-8 mb-16">
+          <!-- Large Featured Card -->
+          <div
+            class="col-span-12 lg:col-span-8 group cursor-pointer relative overflow-hidden rounded-xl bg-surface-container shadow-[0_4px_20px_rgba(46,50,48,0.06)] flex flex-col md:flex-row transition-transform hover:-translate-y-1"
+          >
+            <div class="w-full md:w-1/2 h-64 md:h-auto overflow-hidden">
+              <img
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                data-alt="A professional group of diverse individuals engaged in a strategic discussion within a bright, plant-filled modern workspace. Warm golden sunlight streams through large windows, highlighting the organic wood textures and forest green accents of the room. The atmosphere is collaborative and optimistic, using the Terra brand palette of earthy neutrals and soft greens to create a grounded, high-end business aesthetic."
+                src="https://lh3.googleusercontent.com/aida/AP1WRLsvGSpVVk_yQqJs032iIbhW9edXwm1qA3rTjNOHdMzeWBSe6qVeFNrYCXRyeKRxF_KFAihiYHNhiDx5s3JEDyo9CBVn4hu0LTBnfEtq96csox38MnYfPAwqeybuShQ_20YQLFfFZg_V-PFrLzj06DC53iZdsfMRroSudifXad4nzZjjzDsfjaBIkRjUuArCArTTbnxffPU3MnISWKraR335IasVJzhC6izp-Ox5YR6k_ngpRKNHp0HJ84Q"
+              />
+            </div>
+            <div class="w-full md:w-1/2 p-8 flex flex-col justify-center">
+              <div class="flex items-center gap-2 mb-4">
+                <span
+                  class="px-3 py-1 bg-tertiary-container text-on-tertiary-container text-xs font-bold rounded-full uppercase tracking-wider"
+                  >Featured</span
+                >
+                <span class="text-sm text-secondary font-medium"
+                  >Oct 24 • Portland, OR</span
+                >
+              </div>
+              <h2 class="text-3xl font-bold text-on-surface mb-3 leading-tight">
+                Startup Growth Conference 2024
+              </h2>
+              <p class="text-on-surface-variant mb-6 text-sm leading-relaxed">
+                Join 500+ founders and investors for a three-day immersion into
+                scaling responsibly, sustainable venture models, and the future
+                of green tech.
+              </p>
+              <div class="mt-auto flex items-center justify-between">
+                <div class="flex -space-x-2">
+                  <img
+                    alt="Attendee"
+                    class="w-8 h-8 rounded-full border-2 border-surface"
+                    src="https://lh3.googleusercontent.com/aida/AP1WRLtl_aP_d8cqUeJE1so4hS9RVNoguvE82g7xgQDet4KecLO2pWwKCwr0lUt5ymWvbsyX5vH2THupy-Zaa-iy0t_o5N8l0ZrpOMyLvTu-Xeo73heFpUSMQUQUAg0QWn4vNwrZ1ijXgWlohgd_GubC5qXUArttsq5Fuf-H0RQrl6a3W-rdW_VHKbckf-0gXzBO5f7BNomF97tKrQH5hoSSk1TKRSta2bkQP1L3gLe5XyU1-UrG9TcmGHupmrCe"
+                  />
+                  <img
+                    alt="Attendee"
+                    class="w-8 h-8 rounded-full border-2 border-surface"
+                    src="https://lh3.googleusercontent.com/aida/AP1WRLu8bqcCInrARA962K5A3vrZ8J0Py57_M8OcQ4U_4V56zlqvVcc00liz2LjC5YCqj34TCS2M7_SjsnHPEhRF63heKHYUGKK0ZyWtpTf9TbyUN-juj_d5ggtFeEubF2ZTBknuY5QLprD1IQRXZG7c-Oprn7SaSWTX8XIkR1Ik_d3oYZ4WeOsIzz7Eh0K2c40DdySC4QARCxf96VsgtnrA7pK65KVGxc7qBFD8MeFtT3nK1z8zX_DWkG5MQuI"
+                  />
+                  <img
+                    alt="Attendee"
+                    class="w-8 h-8 rounded-full border-2 border-surface"
+                    src="https://lh3.googleusercontent.com/aida/AP1WRLt-0kgaC2iaf2f9ijdmP_-mH77cmwylPGhZvKuLX1jeo1mSug7kk4XhB4bEFCG9QlehSXIfL0asXi1k2NV3f34jqZoBubQVpaC8YkGTTwPhe8XhqZWt2dYbpwvQR2LQWESPGlUsYU1GA4XeLaUB4JaGXmltndzLojvicav58UyBsgkCBf5wXesPt3QMTxfQO_fBg4MdxNXKOVZm5oE7x3pjG00sXKOSj8chrs4n5qCiO-ZIDbz7_BARiAod"
+                  />
+                  <div
+                    class="w-8 h-8 rounded-full bg-surface-container-highest border-2 border-surface flex items-center justify-center text-[10px] font-bold"
+                  >
+                    +120
+                  </div>
+                </div>
+                <button
+                  class="text-primary font-bold flex items-center gap-1 hover:gap-2 transition-all"
+                >
+                  View Details
+                  <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Secondary Featured Card -->
+          <div
+            class="col-span-12 lg:col-span-4 bg-[#705c30] rounded-xl p-8 text-on-tertiary relative overflow-hidden flex flex-col justify-end transition-transform hover:-translate-y-1"
+          >
+            <div
+              class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 blur-3xl"
+            ></div>
+            <div class="relative z-10">
+              <span
+                class="px-3 py-1 bg-white/20 text-white text-xs font-bold rounded-full uppercase tracking-wider mb-4 inline-block"
+                >Impact Track</span
+              >
+              <h2 class="text-2xl font-bold mb-3 leading-tight">
+                Impact Leadership Retreat
+              </h2>
+              <p class="text-white/80 mb-6 text-sm leading-relaxed">
+                A secluded sanctuary for CEOs to realign their corporate vision
+                with environmental and social stewardship.
+              </p>
+              <p class="text-sm font-bold mb-4">Nov 12-15 • Redwoods Forest</p>
+              <button
+                class="w-full py-3 bg-white text-[#705c30] font-bold rounded-xl transition-all hover:bg-stone-100"
+              >
+                Reserve a Spot
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Bento Content Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Card 1 -->
+          <div
+            class="bg-surface-container rounded-xl overflow-hidden group hover:shadow-lg transition-all border border-transparent hover:border-outline-variant/30"
+          >
+            <div class="h-48 overflow-hidden relative">
+              <img
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                data-alt="A candid, warm-lit photograph of professionals networking at a garden venue during sunset. The lighting is golden and soft, emphasizing natural textures of linen and wood. The color palette is composed of forest greens, creams, and earthy ambers, matching the Terra design system's 'Rooted Warmth' aesthetic. The atmosphere is sophisticated yet approachable and relaxed."
+                src="https://lh3.googleusercontent.com/aida/AP1WRLu4Lt59fddPFuPPoZyL2PHdqF_uGmiTrH1UNYiXzbjXkPz3N7X5NFDmup4erfQzDaM6GEEsbShajnEks52ZmAV_h9ddSAgWKo3NmYrH7GPdB8kuxP7RsrqfVpjJXZo40sB1THY1QbgNoWzszjDDSs94f0OxTs-2flgdJ3sOGdUBdHtvMVaK18poZGhdVSKVWP5FMlLpCZar8kyenfqedsjD1Dweb1q3n2Vn-0bwojmyVt7n8iXP88jVHgFK"
+              />
+              <div class="absolute top-4 left-4">
+                <span
+                  class="px-3 py-1 bg-surface-bright/90 backdrop-blur text-primary text-xs font-bold rounded-md"
+                  >Networking</span
+                >
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-on-surface mb-2">
+                Sunset Mixer: Eco-Founders
+              </h3>
+              <div class="flex items-center gap-2 text-secondary text-xs mb-4">
+                <span
+                  class="material-symbols-outlined text-sm"
+                  data-icon="schedule"
+                  >schedule</span
+                >
+                Today, 6:00 PM
+                <span class="mx-1">•</span>
+                <span
+                  class="material-symbols-outlined text-sm"
+                  data-icon="location_on"
+                  >location_on</span
+                >
+                The Atrium
+              </div>
+              <p class="text-on-surface-variant text-sm line-clamp-2">
+                Connect with entrepreneurs focused on circular economy solutions
+                in a relaxed environment.
+              </p>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div
+            class="bg-surface-container rounded-xl overflow-hidden group hover:shadow-lg transition-all border border-transparent hover:border-outline-variant/30"
+          >
+            <div class="h-48 overflow-hidden relative">
+              <img
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                data-alt="An interior shot of a minimalist meeting room with a large wooden table and comfortable forest green chairs. Large potted plants sit in corners, and high-key soft daylight fills the space. The design style is clean and professional with a focus on natural materials and a calm, grounded mood. Deep greens and warm cream tones dominate the visual space."
+                src="https://lh3.googleusercontent.com/aida/AP1WRLtaPmgub0v0whjjX2RZGP8G0weeCjY76FB6JhR3-T2_03monJMN_PnP4CM7CSyPSuKbqa5uvQVUBv_hecDf8KNBOsOWZoEa7artTU7sBBKoW-pEhAq3QpSSFwJTLbReEHe6WVRR3PgFn-RC5hL063OROI71VtL3K6xFQIeIhp2KV_lsl8LB1_l0ii4hImEXVGoZgBJdy8qe_KVFq836UzXlPgDe87sJY8-l-pxqjNVgTWFxFhvjxh7Tot_I"
+              />
+              <div class="absolute top-4 left-4">
+                <span
+                  class="px-3 py-1 bg-surface-bright/90 backdrop-blur text-primary text-xs font-bold rounded-md"
+                  >Workshop</span
+                >
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-on-surface mb-2">
+                Sustainable Supply Chain Workshop
+              </h3>
+              <div class="flex items-center gap-2 text-secondary text-xs mb-4">
+                <span
+                  class="material-symbols-outlined text-sm"
+                  data-icon="schedule"
+                  >schedule</span
+                >
+                Oct 28, 10:00 AM
+                <span class="mx-1">•</span>
+                <span
+                  class="material-symbols-outlined text-sm"
+                  data-icon="location_on"
+                  >location_on</span
+                >
+                Room 402
+              </div>
+              <p class="text-on-surface-variant text-sm line-clamp-2">
+                Practical strategies for mid-sized companies to transition to
+                carbon-neutral logistics.
+              </p>
+            </div>
+          </div>
+          <!-- Card 3 (Promo/Newsletter) -->
+          <div
+            class="bg-primary-container/20 rounded-xl p-8 flex flex-col border border-primary/10"
+          >
+            <div
+              class="w-12 h-12 bg-primary text-on-primary rounded-xl flex items-center justify-center mb-6"
+            >
+              <span class="material-symbols-outlined" data-icon="mail"
+                >mail</span
+              >
+            </div>
+            <h3 class="text-2xl font-bold text-on-primary-fixed-variant mb-3">
+              Weekly Insights
+            </h3>
+            <p class="text-on-surface-variant text-sm mb-6 leading-relaxed">
+              Subscribe to receive curated business summaries and early-bird
+              access to leadership summits.
+            </p>
+            <div class="mt-auto">
+              <input
+                class="w-full bg-surface mb-3 px-4 py-2.5 rounded-lg border-none focus:ring-2 focus:ring-primary text-sm shadow-inner"
+                placeholder="email@address.com"
+                type="email"
+              />
+              <button
+                class="w-full bg-primary text-on-primary py-2.5 rounded-lg font-bold hover:opacity-95 transition-all"
+              >
+                Subscribe
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- More Events List (Tonal Separation) -->
+        <div class="mt-16 pt-16 border-t border-outline-variant/30">
+          <div class="flex items-center justify-between mb-8">
+            <h2 class="text-3xl font-bold text-on-surface">
+              Upcoming in Social Impact
+            </h2>
+            <a
+              class="text-primary font-bold text-sm flex items-center gap-1 group"
+              href="#"
+            >
+              Browse Category
+              <span
+                class="material-symbols-outlined transition-transform group-hover:translate-x-1"
+                >chevron_right</span
+              >
+            </a>
+          </div>
+          <div class="space-y-4">
+            <!-- List Item 1 -->
+            <div
+              class="bg-surface-container-low p-4 rounded-xl flex items-center gap-6 hover:bg-surface-container transition-all"
+            >
+              <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+                <img
+                  class="w-full h-full object-cover"
+                  data-alt="A focused close-up of hands typing on a modern laptop amidst a workspace filled with sketches, organic texture swatches, and a cup of matcha green tea. The lighting is soft and diffused, creating a professional yet warm creative atmosphere. The aesthetic follows a muted palette of greens, browns, and light cream tones."
+                  src="https://lh3.googleusercontent.com/aida/AP1WRLujjNXuYXHqULf1DT6jx0L3-8lEg40OEqArtpZtyEAPzHereqGYSAfKQOPqeLaqoWQhQqlEvtsh69gD1joVCuCe6zh7dnjNbRQNodga73TxMiRvR-pRWcly4nZpnMJq-UVm6itzOgf_jCgXI_1j-6H_iBXsHyxmlRj0RhPiSDhaHDtw6biVZgAGXVNzuZPH575DcIE_JI7k7-gw71rKGyWCCYAIqNUluIALyAIfYmwTrJH-yowv8x2NVXr1"
+                />
+              </div>
+              <div class="flex-grow">
+                <h4 class="font-bold text-lg text-on-surface">
+                  Venture Philanthropy Summit
+                </h4>
+                <p class="text-sm text-on-surface-variant">
+                  Connecting capital with systemic social change.
+                </p>
+              </div>
+              <div class="text-right flex-shrink-0 px-4">
+                <p class="font-bold text-on-surface">Nov 05</p>
+                <p class="text-xs text-secondary">8 slots left</p>
+              </div>
+              <button
+                class="p-2 rounded-full hover:bg-surface-container-highest transition-all"
+              >
+                <span
+                  class="material-symbols-outlined text-primary"
+                  data-icon="bookmark"
+                  >bookmark</span
+                >
+              </button>
+            </div>
+            <!-- List Item 2 -->
+            <div
+              class="bg-surface-container-low p-4 rounded-xl flex items-center gap-6 hover:bg-surface-container transition-all"
+            >
+              <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+                <img
+                  class="w-full h-full object-cover"
+                  data-alt="A diverse team of professionals laughing and talking in a modern, open-plan office characterized by minimalist furniture, warm wood finishes, and abundant indoor greenery. The scene is bright and airy, reflecting a high-key light mode style. The colors are rooted in the Terra design system, emphasizing organic warmth and professional collaboration."
+                  src="https://lh3.googleusercontent.com/aida/AP1WRLu1ByfJ79RxV2bBzDuJUZu5ERnK8uqlw2N5THMWuJoiGWYi0Xe13-FG-mVcgxwPAGMuNh8vMWBRK47kRRmaTFyl8bBKJpTf-oF0Rkqzsto_htSoIaj6cEP1uG9DONmVfD5Nt_LpmwFlelI02zV-6pQ6JTPYCH_zWZP5PoVp2MmQ4QKzLYjERwZcGkUrE5kWBH0ftq6Eevv8eOBwscc4v_7164UFC6KN468IVYHgpozJPsY5ccqQ7faJba2X"
+                />
+              </div>
+              <div class="flex-grow">
+                <h4 class="font-bold text-lg text-on-surface">
+                  Community-Driven Growth Lab
+                </h4>
+                <p class="text-sm text-on-surface-variant">
+                  Building local ecosystems that scale globally.
+                </p>
+              </div>
+              <div class="text-right flex-shrink-0 px-4">
+                <p class="font-bold text-on-surface">Nov 09</p>
+                <p class="text-xs text-secondary">Confirmed</p>
+              </div>
+              <button
+                class="p-2 rounded-full hover:bg-surface-container-highest transition-all"
+              >
+                <span
+                  class="material-symbols-outlined text-outline"
+                  data-icon="bookmark"
+                  >bookmark</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+      // Micro-interaction for filter buttons
+      document.querySelectorAll("section button").forEach((button) => {
+        button.addEventListener("click", function () {
+          if (!this.classList.contains("bg-primary")) {
+            this.classList.add("ring-2", "ring-primary", "ring-inset");
+            setTimeout(() => this.classList.remove("ring-2"), 600);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
