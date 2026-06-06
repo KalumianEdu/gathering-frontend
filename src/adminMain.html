@@ -13,7 +13,7 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
       rel="stylesheet"
     />
-    <link href="/styles/adminMainStyle.css" rel="stylesheet" />
+    <link href="./styles/adminMainStyle.css" rel="stylesheet" />
     <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
@@ -112,7 +112,8 @@
 
   <body class="bg-surface-bright text-on-surface">
     <aside
-      class="fixed left-0 top-0 h-screen w-72 border-r border-stone-200 dark:border-stone-800 bg-[#faf6f0] dark:bg-stone-900 flex flex-col p-4 gap-2 z-50"
+      id="admin-sidebar"
+      class="admin-sidebar fixed left-0 top-0 h-screen w-72 border-r border-stone-200 dark:border-stone-800 bg-[#faf6f0] dark:bg-stone-900 flex flex-col p-4 gap-2 z-50"
     >
       <div class="mb-8 px-2 py-4">
         <div class="flex items-center gap-3">
@@ -122,13 +123,27 @@
             <span class="material-symbols-outlined">shield_person</span>
           </div>
           <div>
-            <h2 class="text-xl font-bold text-[#4a7c59] font-headline">
+            <h2
+              class="sidebar-label text-xl font-bold text-[#4a7c59] font-headline"
+            >
               Admin Console
             </h2>
-            <p class="text-xs text-stone-500 font-body">System Oversight</p>
+            <p class="sidebar-label text-xs text-stone-500 font-body">
+              System Oversight
+            </p>
           </div>
         </div>
       </div>
+      <button
+        id="sidebar-toggle"
+        class="mb-4 flex items-center justify-center gap-2 rounded-xl border border-outline-variant/40 bg-white px-4 py-3 text-sm font-bold text-primary shadow-sm hover:bg-primary-fixed/40 transition-colors"
+        type="button"
+        aria-label="Collapse side panel"
+        aria-expanded="true"
+      >
+        <span class="material-symbols-outlined">left_panel_close</span>
+        <span class="sidebar-label">Minimize Panel</span>
+      </button>
       <nav class="flex-grow space-y-1">
         <a
           id="tab-overview"
@@ -136,7 +151,7 @@
           href="#"
         >
           <span class="material-symbols-outlined">analytics</span>
-          <span class="font-body text-sm">Overview</span>
+          <span class="sidebar-label font-body text-sm">Overview</span>
         </a>
         <a
           id="tab-users"
@@ -144,7 +159,7 @@
           href="#"
         >
           <span class="material-symbols-outlined">group</span>
-          <span class="font-body text-sm">User Management</span>
+          <span class="sidebar-label font-body text-sm">User Management</span>
         </a>
         <a
           id="tab-approvals"
@@ -152,11 +167,19 @@
           href="#"
         >
           <span class="material-symbols-outlined">fact_check</span>
-          <span class="font-body text-sm">Approvals</span>
+          <span class="sidebar-label font-body text-sm">Approvals</span>
+        </a>
+        <a
+          id="link-logs"
+          class="text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-xl flex items-center gap-3 px-4 py-3 transition-transform hover:translate-x-1"
+          href="./logsPage.html"
+        >
+          <span class="material-symbols-outlined">receipt_long</span>
+          <span class="sidebar-label font-body text-sm">View Logs</span>
         </a>
       </nav>
       <div
-        class="mt-auto p-4 bg-surface-container rounded-xl flex flex-col gap-3"
+        class="sidebar-profile mt-auto p-4 bg-surface-container rounded-xl flex flex-col gap-3"
       >
         <div class="flex items-center gap-3 min-w-0">
           <img
@@ -164,7 +187,7 @@
             class="w-10 h-10 rounded-full object-cover border-2 border-primary-fixed"
             src="https://media.istockphoto.com/id/1393750072/tr/vekt%C3%B6r/flat-white-icon-man-for-web-design-silhouette-flat-illustration-vector-illustration-stock.jpg?s=612x612&w=0&k=20&c=6DZe_hqZl0BxGZUjCuJS3FZBdWD4ysOw02QXp5lvZIc="
           />
-          <div class="overflow-visible min-w-0">
+          <div class="sidebar-label overflow-visible min-w-0">
             <p
               id="admin-name-display"
               class="text-sm font-bold whitespace-normal"
@@ -187,12 +210,16 @@
           href="./login.html"
           class="mt-2 inline-flex items-center justify-center w-full px-4 py-3 text-sm font-semibold text-red-600 bg-white border border-red-200 rounded-xl shadow-sm hover:bg-red-50 transition-colors"
         >
-          <span class="material-symbols-outlined mr-2">logout</span> Logout
+          <span class="material-symbols-outlined mr-2">logout</span>
+          <span class="sidebar-label">Logout</span>
         </a>
       </div>
     </aside>
 
-    <main class="ml-72 flex-1 flex flex-col min-h-screen">
+    <main
+      id="admin-main"
+      class="admin-main ml-72 flex-1 flex flex-col min-h-screen"
+    >
       <div
         id="view-overview"
         class="section-view section-view-visible p-8 flex flex-col w-full"
@@ -444,7 +471,45 @@
         </div>
       </footer>
 
-      <script type="module" src="./scripts/adminMainScript.js"></script>
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          const sidebar = document.getElementById("admin-sidebar");
+          const main = document.getElementById("admin-main");
+          const toggle = document.getElementById("sidebar-toggle");
+          const toggleIcon = toggle?.querySelector(
+            ".material-symbols-outlined",
+          );
+
+          if (!sidebar || !main || !toggle) return;
+
+          const setCollapsed = (isCollapsed) => {
+            sidebar.classList.toggle("is-collapsed", isCollapsed);
+            main.classList.toggle("is-sidebar-collapsed", isCollapsed);
+            toggle.setAttribute("aria-expanded", String(!isCollapsed));
+            toggle.setAttribute(
+              "aria-label",
+              isCollapsed ? "Expand side panel" : "Collapse side panel",
+            );
+
+            if (toggleIcon) {
+              toggleIcon.textContent = isCollapsed
+                ? "left_panel_open"
+                : "left_panel_close";
+            }
+
+            localStorage.setItem("adminSidebarCollapsed", String(isCollapsed));
+          };
+
+          setCollapsed(
+            localStorage.getItem("adminSidebarCollapsed") === "true",
+          );
+
+          toggle.addEventListener("click", () => {
+            setCollapsed(!sidebar.classList.contains("is-collapsed"));
+          });
+        });
+      </script>
+      <script type="module" src="./scripts/adminMainScript.js?v=2"></script>
     </main>
   </body>
 </html>

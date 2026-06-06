@@ -1,4 +1,57 @@
 body { font-family: 'Nunito Sans', sans-serif; background-color: #faf6f0; color: #2e3230; }
-        h1, h2, h3, .font-headline { font-family: 'Literata', serif; }
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-        .soft-shadow { box-shadow: 0 4px 20px rgba(46, 50, 48, 0.06); }
+h1, h2, h3, .font-headline { font-family: 'Literata', serif; }
+.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+.soft-shadow { box-shadow: 0 4px 20px rgba(46, 50, 48, 0.06); }
+
+.admin-sidebar,
+.admin-main {
+  transition: width 0.25s ease, margin-left 0.25s ease;
+}
+
+.admin-sidebar.is-collapsed {
+  width: 5.5rem;
+}
+
+.admin-sidebar.is-collapsed .sidebar-label {
+  display: none;
+}
+
+.admin-sidebar.is-collapsed a,
+.admin-sidebar.is-collapsed button {
+  justify-content: center;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.admin-sidebar.is-collapsed #admin-logout .material-symbols-outlined {
+  margin-right: 0;
+}
+
+.admin-sidebar.is-collapsed .sidebar-profile {
+  align-items: center;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.admin-sidebar.is-collapsed .sidebar-profile > div {
+  justify-content: center;
+}
+
+.admin-main.is-sidebar-collapsed {
+  margin-left: 5.5rem;
+}
+
+@media (max-width: 768px) {
+  .admin-sidebar {
+    width: 5.5rem;
+  }
+
+  .admin-sidebar .sidebar-label {
+    display: none;
+  }
+
+  .admin-main,
+  .admin-main.is-sidebar-collapsed {
+    margin-left: 5.5rem;
+  }
+}

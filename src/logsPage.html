@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log Viewer — Admin</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link href="./styles/logsStyle.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <a class="nav-brand" href="#">
+        <span class="material-icons">eco</span>
+        <span class="nav-brand-text">Gathering</span>
+        <span class="nav-brand-sub">· Admin</span>
+      </a>
+      <div class="nav-links">
+        <div class="nav-link" onclick="setView('all')" id="nav-all">
+          <span class="material-icons">list_alt</span> All Logs
+        </div>
+        <div class="nav-link" onclick="setView('errors')" id="nav-errors">
+          <span class="material-icons">error_outline</span> Errors
+        </div>
+        <div class="nav-link" onclick="setView('today')" id="nav-today">
+          <span class="material-icons">today</span> Today
+        </div>
+        <div
+          class="nav-link"
+          onclick="setView('exceptions')"
+          id="nav-exceptions"
+        >
+          <span class="material-icons">bug_report</span> Exceptions
+        </div>
+      </div>
+      <div class="nav-right">
+        <div class="nav-badge" id="error-badge">
+          <span class="material-icons">warning</span>
+          <span id="badge-count">0</span> errors
+        </div>
+        <div class="nav-admin">
+          <span class="material-icons" style="font-size: 16px"
+            >admin_panel_settings</span
+          >
+          Admin
+        </div>
+        <div class="nav-avatar">
+          <span class="material-icons">person</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO STRIP -->
+    <div class="hero-strip">
+      <div class="hero-inner">
+        <div class="hero-eyebrow">
+          <span class="material-icons">monitoring</span> System Observability
+        </div>
+        <div class="hero-title">Application Logs</div>
+        <div class="hero-sub">
+          Monitor, filter and audit every event in your ASP.NET Core
+          application.
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE CONTENT -->
+    <div class="page">
+      <!-- STAT CARDS -->
+      <div class="stats-row">
+        <div
+          class="stat-card active"
+          style="--card-accent: var(--green-soft)"
+          id="card-all"
+          onclick="filterLevel('')"
+        >
+          <div
+            class="stat-icon-wrap"
+            style="
+              --icon-bg: var(--green-mist);
+              --icon-color: var(--green-soft);
+            "
+          >
+            <span class="material-icons">segment</span>
+          </div>
+          <div class="stat-num" id="num-all">—</div>
+          <div class="stat-label">Total Logs</div>
+        </div>
+        <div
+          class="stat-card"
+          style="--card-accent: var(--error)"
+          id="card-Error"
+          onclick="filterLevel('Error')"
+        >
+          <div
+            class="stat-icon-wrap"
+            style="--icon-bg: var(--error-bg); --icon-color: var(--error)"
+          >
+            <span class="material-icons">cancel</span>
+          </div>
+          <div class="stat-num" id="num-Error">—</div>
+          <div class="stat-label">Errors</div>
+        </div>
+        <div
+          class="stat-card"
+          style="--card-accent: var(--warn)"
+          id="card-Warning"
+          onclick="filterLevel('Warning')"
+        >
+          <div
+            class="stat-icon-wrap"
+            style="--icon-bg: var(--warn-bg); --icon-color: var(--warn)"
+          >
+            <span class="material-icons">warning_amber</span>
+          </div>
+          <div class="stat-num" id="num-Warning">—</div>
+          <div class="stat-label">Warnings</div>
+        </div>
+        <div
+          class="stat-card"
+          style="--card-accent: var(--info)"
+          id="card-Information"
+          onclick="filterLevel('Information')"
+        >
+          <div
+            class="stat-icon-wrap"
+            style="--icon-bg: var(--info-bg); --icon-color: var(--info)"
+          >
+            <span class="material-icons">info</span>
+          </div>
+          <div class="stat-num" id="num-Information">—</div>
+          <div class="stat-label">Info</div>
+        </div>
+        <div
+          class="stat-card"
+          style="--card-accent: var(--debug)"
+          id="card-Debug"
+          onclick="filterLevel('Debug')"
+        >
+          <div
+            class="stat-icon-wrap"
+            style="--icon-bg: var(--debug-bg); --icon-color: var(--debug)"
+          >
+            <span class="material-icons">code</span>
+          </div>
+          <div class="stat-num" id="num-Debug">—</div>
+          <div class="stat-label">Debug</div>
+        </div>
+      </div>
+
+      <!-- CHART -->
+      <div class="chart-card">
+        <div class="card-header">
+          <div class="card-title-wrap">
+            <div class="card-eyebrow">
+              <span class="material-icons">bar_chart</span> Frequency
+            </div>
+            <div class="card-title">Log activity — last 7 days</div>
+          </div>
+          <div class="chart-legend">
+            <div class="legend-item">
+              <div class="legend-dot" style="background: var(--error)"></div>
+              Error
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background: var(--warn)"></div>
+              Warning
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background: var(--info)"></div>
+              Info
+            </div>
+            <div class="legend-item">
+              <div
+                class="legend-dot"
+                style="background: var(--green-light)"
+              ></div>
+              Debug
+            </div>
+          </div>
+        </div>
+        <div class="chart-body" id="chart"></div>
+      </div>
+
+      <!-- FILTER BAR -->
+      <div class="filter-bar">
+        <div class="search-wrap">
+          <span class="material-icons search-icon">search</span>
+          <input
+            class="search-input"
+            id="search"
+            placeholder="Search messages, exceptions…"
+            oninput="applyFilters()"
+          />
+        </div>
+        <div class="filter-chips">
+          <div class="chip active" id="chip-all" onclick="filterLevel('')">
+            <span class="material-icons">apps</span>All
+          </div>
+          <div
+            class="chip chip-error"
+            id="chip-Error"
+            onclick="filterLevel('Error')"
+          >
+            <span class="material-icons">cancel</span>Error
+          </div>
+          <div
+            class="chip chip-warn"
+            id="chip-Warning"
+            onclick="filterLevel('Warning')"
+          >
+            <span class="material-icons">warning_amber</span>Warning
+          </div>
+          <div
+            class="chip chip-info"
+            id="chip-Information"
+            onclick="filterLevel('Information')"
+          >
+            <span class="material-icons">info</span>Info
+          </div>
+          <div
+            class="chip chip-debug"
+            id="chip-Debug"
+            onclick="filterLevel('Debug')"
+          >
+            <span class="material-icons">code</span>Debug
+          </div>
+        </div>
+        <div class="filter-right">
+          <button class="btn" onclick="refresh()">
+            <span class="material-icons">refresh</span>Refresh
+          </button>
+          <button class="btn btn-primary" onclick="exportLogs()">
+            <span class="material-icons">download</span>Export CSV
+          </button>
+        </div>
+      </div>
+
+      <!-- TABLE -->
+      <div class="table-card">
+        <div class="table-top">
+          <span class="table-title">Log entries</span>
+          <span class="table-count" id="table-count">0</span>
+          <div class="table-meta">
+            <div class="live-dot"></div>
+            Live · refreshes every 30s
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 130px">Timestamp</th>
+              <th style="width: 120px">Level</th>
+              <th>Message</th>
+            </tr>
+          </thead>
+          <tbody id="log-body"></tbody>
+        </table>
+        <div id="empty" class="empty" style="display: none">
+          <div class="empty-leaf">🌿</div>
+          <div class="empty-title">No logs found</div>
+          <div class="empty-sub">
+            Try adjusting your filters or search term.
+          </div>
+        </div>
+        <div class="pagination">
+          <span class="page-info" id="page-info">—</span>
+          <div class="page-btns" id="page-btns"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /page -->
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <span>eco</span> Gathering Admin · © 2026 · ASP.NET Core Log Viewer
+    </footer>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast">
+      <span class="material-icons" id="toast-icon">check_circle</span>
+      <span id="toast-msg">Done</span>
+    </div>
+
+    <script src="./scripts/logsScript.js" type="module"></script>
+  </body>
+</html>

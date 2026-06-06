@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const token = localStorage.getItem("accessToken");
   const userRole = localStorage.getItem("userRole");
+
   if (!token) {
     window.location.href = "./login.html";
     return;
